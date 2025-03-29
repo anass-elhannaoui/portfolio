@@ -95,7 +95,7 @@ export default function Home() {
           >
             <div className="relative w-full aspect-square max-w-[500px] mx-auto">
               <Image
-                src="https://media.licdn.com/dms/image/v2/D4E03AQFz4LgVY7LgSA/profile-displayphoto-shrink_800_800/B4EZUPQGHWGYAg-/0/1739717633926?e=1748476800&v=beta&t=OVBgKIGdH0oXAJ3-w4L-HTWdpSRNp1-PdML6RgfKgaI"
+                src="/images/Profile.jpg"
                 alt="Profile"
                 fill
                 className="object-cover rounded-full border-4 border-primary/20"
@@ -105,51 +105,36 @@ export default function Home() {
           </motion.div>
         </div>
 
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16"
         >
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-              alt="Python"
-              width={64}
-              height={64}
-              className="mb-4"
-            />
-            <span className="text-muted-foreground">Python</span>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg shadow-sm hover:bg-accent transition-colors">
+            <h3 className="text-lg font-semibold mb-2">Machine Learning</h3>
+            <p className="text-muted-foreground">
+              Building predictive models and leveraging AI for data-driven insights.
+            </p>
           </div>
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
-              alt="TensorFlow"
-              width={64}
-              height={64}
-              className="mb-4"
-            />
-            <span className="text-muted-foreground">TensorFlow</span>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg shadow-sm hover:bg-accent transition-colors">
+            <h3 className="text-lg font-semibold mb-2">Cloud Architecture</h3>
+            <p className="text-muted-foreground">
+              Designing scalable and secure cloud solutions using AWS, Azure, and GCP.
+            </p>
           </div>
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg"
-              alt="Kubernetes"
-              width={64}
-              height={64}
-              className="mb-4"
-            />
-            <span className="text-muted-foreground">Kubernetes</span>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg shadow-sm hover:bg-accent transition-colors">
+            <h3 className="text-lg font-semibold mb-2">DevOps Practices</h3>
+            <p className="text-muted-foreground">
+              Automating workflows, CI/CD pipelines, and infrastructure as code.
+            </p>
           </div>
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
-              alt="Docker"
-              width={64}
-              height={64}
-              className="mb-4"
-            />
-            <span className="text-muted-foreground">Docker</span>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg shadow-sm hover:bg-accent transition-colors">
+            <h3 className="text-lg font-semibold mb-2">Full Stack Development</h3>
+            <p className="text-muted-foreground">
+              Creating robust web applications with modern frameworks and tools.
+            </p>
           </div>
         </motion.div>
       </div>

@@ -9,41 +9,123 @@ export default function Skills() {
     {
       title: "Programming Languages",
       skills: [
-        { name: "Python", level: 95, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Java", level: 85, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-        { name: "JavaScript", level: 90, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-        { name: "SQL", level: 88, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-        { name: "R", level: 80, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg" },
-        { name: "C", level: 75, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+        {
+          name: "Python",
+          level: 95,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+          highlight:
+            "Developed ML models, chat apps, and real-time systems across multiple projects",
+        },
+        {
+          name: "Java",
+          level: 85,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+          highlight:
+            "Built scalable backend apps and real-time Java RMI chat systems",
+        },
+        {
+          name: "TypeScript",
+          level: 90,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+          highlight:
+            "Enhanced UI/UX with clean, typed React components and interactivity",
+        },
+        {
+          name: "SQL",
+          level: 88,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+          highlight: "Designed and optimized relational databases for web apps",
+        },
+        {
+          name: "C",
+          level: 75,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+          highlight: "Implemented low-level system programs and algorithms",
+        },
       ],
     },
     {
       title: "Data Science & ML",
       skills: [
-        { name: "TensorFlow", level: 90, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
-        { name: "PyTorch", level: 85, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
-        { name: "Scikit-learn", level: 92, icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" },
-        { name: "Pandas", level: 95, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
-        { name: "NumPy", level: 93, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
-        { name: "Jupyter", level: 90, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
+        {
+          name: "TensorFlow",
+          level: 90,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+          highlight:
+            "Trained deep learning models for pothole detection & sentiment analysis",
+        },
+        {
+          name: "Scikit-learn",
+          level: 92,
+          icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
+          highlight:
+            "Built recommendation systems & sentiment classifiers",
+        },
+        {
+          name: "Pandas",
+          level: 95,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+          highlight:
+            "Cleaned and processed large-scale datasets for analysis & ML",
+        },
+        {
+          name: "NumPy",
+          level: 93,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+          highlight:
+            "Optimized numerical computations in ML workflows",
+        },
+        {
+          name: "Jupyter",
+          level: 90,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
+          highlight:
+            "Used for data exploration and visualization during ML projects",
+        },
       ],
     },
     {
-      title: "DevOps & Cloud",
+      title: "Databases",
       skills: [
-        { name: "Docker", level: 88, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-        { name: "Kubernetes", level: 85, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
-        { name: "AWS", level: 82, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
-        { name: "Jenkins", level: 80, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
-        { name: "GitLab CI/CD", level: 85, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" },
-        { name: "Prometheus", level: 78, icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+        {
+          name: "PostgreSQL",
+          level: 88,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+          highlight:
+            "Designed relational databases for recommendation systems & chat apps",
+        },
+        {
+          name: "MongoDB",
+          level: 85,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+          highlight: "Handled NoSQL storage for flexible data access",
+        },
+        {
+          name: "MySQL",
+          level: 80,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+          highlight: "Managed data for web apps & backend systems",
+        },
+        {
+          name: "Redis",
+          level: 70,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+          highlight:
+            "Implemented caching mechanisms to improve API performance",
+        },
+        {
+          name: "Neo4j",
+          level: 65,
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg",
+          highlight: "Explored graph database use cases",
+        },
       ],
     },
   ];
 
   return (
     <div className="min-h-screen pt-24 bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,74 +141,45 @@ export default function Skills() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+              className="bg-card p-6 rounded-xl shadow-lg"
             >
               <h2 className="text-2xl font-semibold mb-6">{category.title}</h2>
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
                     key={skillIndex}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: skillIndex * 0.1 }}
+                    className="flex gap-4 bg-muted p-4 rounded-lg shadow-sm"
                   >
-                    <div className="flex items-center gap-4 mb-2">
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={24}
-                        height={24}
-                      />
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="text-muted-foreground ml-auto">{skill.level}%</span>
+                    <Image
+                      src={skill.icon}
+                      alt={skill.name}
+                      width={32}
+                      height={32}
+                      className="flex-shrink-0"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-medium">{skill.name}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {skill.level}%
+                        </span>
+                      </div>
+                      <Progress value={skill.level} className="h-2 mb-1" />
+                      {skill.highlight && (
+                        <p className="text-xs text-muted-foreground">
+                          {skill.highlight}
+                        </p>
+                      )}
                     </div>
-                    <Progress value={skill.level} className="h-2" />
                   </motion.div>
                 ))}
               </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-12"
-        >
-          <h2 className="text-2xl font-semibold mb-6">Certifications</h2>
-          <div className="space-y-6">
-            <div className="bg-card p-6 rounded-lg shadow-sm">
-              <div className="flex items-center gap-4">
-                <Image
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg"
-                  alt="Oracle"
-                  width={48}
-                  height={48}
-                />
-                <div>
-                  <h3 className="text-xl font-medium">OCI DevOps Professional</h3>
-                  <p className="text-muted-foreground">Oracle Cloud Infrastructure (OCI)</p>
-                  <p className="text-sm text-muted-foreground">March 2025</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-card p-6 rounded-lg shadow-sm">
-              <div className="flex items-center gap-4">
-                <Image
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
-                  alt="Machine Learning"
-                  width={48}
-                  height={48}
-                />
-                <div>
-                  <h3 className="text-xl font-medium">Machine Learning Specialization</h3>
-                  <p className="text-muted-foreground">DeepLearning.AI & Stanford Online</p>
-                  <p className="text-sm text-muted-foreground">February 2025</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
