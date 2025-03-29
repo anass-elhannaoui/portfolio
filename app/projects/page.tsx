@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Technology = {
   name: string;
@@ -13,6 +13,7 @@ type Technology = {
 };
 
 type Project = {
+  id: string;
   title: string;
   period: string;
   description: string;
@@ -28,11 +29,39 @@ type Project = {
 export default function Projects() {
   const projects: Project[] = [
     {
+      id: "road-infrastructure",
+      title: "AI-Powered Road Infrastructure Management System",
+      period: "March 2025 – June 2025",
+      description: "A mobile/desktop app for real-time pothole detection and maintenance planning using advanced ML models.",
+      image: "/images/road-infra.png",
+      technologies: [
+        { name: "YOLOv8", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Apache Kafka", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" },
+        { name: "Spark", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" },
+        { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name: "Faster R-CNN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Vision Transformers", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name: "Leaflet.js", icon: "https://www.svgrepo.com/show/353991/leaflet.svg" }
+      ],
+      responsibilities: [
+        "Developed a mobile/desktop app for road pothole detection using YOLOv8, Faster R-CNN, and Vision Transformers.",
+        "Designed a real-time data processing pipeline with Apache Kafka and Spark.",
+        "Created an interactive mapping system with Leaflet.js and OpenStreetMap.",
+        "Built an administrative interface for maintenance planning and real-time notifications.",
+        "Conducted rigorous testing to ensure high detection accuracy and reliability.",
+      ],
+      github: "https://github.com/aadraouimostafakamal/road-infrastructure-management",
+      demo: "#",
+      category: ["Machine Learning", "Web Development"],
+      type: "Professional"
+    },
+    {
+      id: "energy-management",
       title: "Energy Consumption Management Platform (SIME)",
       period: "August 2024 – October 2024",
-      description:
-        "A full-stack platform for monitoring and managing factory energy consumption with real-time analytics.",
-      image: "/images/SIME.png", // You'll need to add this image
+      description: "A full-stack platform for monitoring and managing factory energy consumption with real-time analytics.",
+      image: "/images/SIME.png",
       technologies: [
         { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
         { name: "Angular", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" },
@@ -54,41 +83,31 @@ export default function Projects() {
       type: "Professional"
     },
     {
-      title: "AI-Powered Road Infrastructure Management System",
-      period: "March 2025 – June 2025",
-      description:
-        "A mobile/desktop app for real-time pothole detection and maintenance planning using advanced ML models.",
-      image: "/images/road-infra.png",
+      id: "chat-application",
+      title: "RipAns – RMI Chat Application",
+      period: "February 2025 – March 2025",
+      description: "A real-time chat application built using Java RMI to enable secure and efficient communication between multiple clients.",
+      image: "/images/RipAns.png",
       technologies: [
-        { name: "YOLOv8", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Apache Kafka", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" },
-        { name: "Spark", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" },
-        { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-        { name: "Faster R-CNN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Vision Transformers", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        
-        { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-        { name: "Leaflet.js", icon: "https://www.svgrepo.com/show/353991/leaflet.svg" }
-        
-      
+        { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+        { name: "RMI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
       ],
       responsibilities: [
-        "Developed a mobile/desktop app for road pothole detection using YOLOv8, Faster R-CNN, and Vision Transformers.",
-        "Designed a real-time data processing pipeline with Apache Kafka and Spark.",
-        "Created an interactive mapping system with Leaflet.js and OpenStreetMap.",
-        "Built an administrative interface for maintenance planning and real-time notifications.",
-        "Conducted rigorous testing to ensure high detection accuracy and reliability.",
+        "Designed and implemented a distributed chat system using Java RMI architecture.",
+        "Established a client-server communication model enabling real-time messaging across multiple clients.",
+        "Ensured message synchronization and consistent state management across clients.",
+        "Implemented key functionalities such as private messaging, public chat, and user connection management.",
       ],
-      github: "https://github.com/aadraouimostafakamal/road-infrastructure-management",
-      demo: "#",
-      category: ["Machine Learning", "Web Development"],
-      type: "Professional"
+      github: "https://github.com/aadraouimostafakamal/RipAns",
+      demo: "https://aadraouimostafakamal.github.io/RipAns/",
+      category: ["Web Development"],
+      type: "Personal"
     },
     {
+      id: "movie-recommendation",
       title: "Movie Recommendation System",
       period: "October 2023 – November 2023",
-      description:
-        "A personalized movie recommendation platform combining machine learning algorithms with a user-friendly web interface.",
+      description: "A personalized movie recommendation platform combining machine learning algorithms with a user-friendly web interface.",
       image: "/images/movie-rec.jpg",
       technologies: [
         { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
@@ -110,10 +129,10 @@ export default function Projects() {
       type: "Academic"
     },
     {
+      id: "twitter-sentiment",
       title: "Twitter Sentiment Analysis",
       period: "October 2024 – December 2024",
-      description:
-        "A sentiment analysis system designed to classify Twitter comments using advanced NLP techniques and machine learning models.",
+      description: "A sentiment analysis system designed to classify Twitter comments using advanced NLP techniques and machine learning models.",
       image: "/images/twitter-sentiment.png",
       technologies: [
         { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
@@ -133,42 +152,49 @@ export default function Projects() {
       demo: "#",
       category: ["Machine Learning"],
       type: "Academic"
-    },
-    {
-      title: "RipAns – RMI Chat Application",
-      period: "February 2025 – March 2025",
-      description:
-        "A real-time chat application built using Java RMI to enable secure and efficient communication between multiple clients.",
-      image: "/images/RipAns.png",
-      technologies: [
-        { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-        { name: "RMI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-      ],
-      responsibilities: [
-        "Designed and implemented a distributed chat system using Java RMI architecture.",
-        "Established a client-server communication model enabling real-time messaging across multiple clients.",
-        "Ensured message synchronization and consistent state management across clients.",
-        "Implemented key functionalities such as private messaging, public chat, and user connection management.",
-      ],
-      github: "https://github.com/aadraouimostafakamal/RipAns",
-      demo: "https://aadraouimostafakamal.github.io/RipAns/",
-      category: ["Web Development"],
-      type: "Personal"
-    },
+    }
   ];
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState<string>("All");
 
-  const openProjectDetails = (project: Project) => setSelectedProject(project);
-  const closeProjectDetails = () => setSelectedProject(null);
+  const openProjectDetails = (project: Project) => {
+    setSelectedProject(project);
+    window.history.pushState({}, '', `#${project.id}`);
+  };
 
-  const filteredProjects =
-    filter === "All"
-      ? projects
-      : projects.filter((project) => project.category.includes(filter));
+  const closeProjectDetails = () => {
+    setSelectedProject(null);
+    window.history.pushState({}, '', window.location.pathname);
+  };
 
-  // Type badge colors
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const project = projects.find(p => p.id === hash);
+        if (project) {
+          setSelectedProject(project);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    };
+
+    // Check hash on initial load
+    handleHashChange();
+
+    // Set up hash change listener
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  const filteredProjects = filter === "All" 
+    ? projects 
+    : projects.filter(project => project.category.includes(filter));
+
   const typeColors = {
     Professional: "bg-blue-100 text-blue-800",
     Academic: "bg-green-100 text-green-800",

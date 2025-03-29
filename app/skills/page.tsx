@@ -11,36 +11,36 @@ export default function Skills() {
       skills: [
         {
           name: "Python",
-          level: 95,
+          level: 90,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
           highlight:
-            "Developed ML models, chat apps, and real-time systems across multiple projects",
+            "Developed machine learning models, performed data preprocessing and visualization, and utilized Flask frameworks for web application deployment.",
         },
         {
           name: "Java",
-          level: 85,
+          level: 90,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
           highlight:
-            "Built scalable backend apps and real-time Java RMI chat systems",
+            "Engineered scalable backend solutions, including REST APIs and real-time Java RMI chat applications, while completing various academic projects.",
         },
         {
           name: "TypeScript",
-          level: 90,
+          level: 60,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
           highlight:
-            "Enhanced UI/UX with clean, typed React components and interactivity",
+            "Enhanced UI/UX with clean, typed React components and interactivity.",
         },
         {
           name: "SQL",
-          level: 88,
+          level: 85,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-          highlight: "Designed and optimized relational databases for web apps",
+          highlight: "Designed and optimized PostgreSQL databases for web apps, ensuring performance, security, and scalability."
         },
         {
           name: "C",
-          level: 75,
+          level: 95,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-          highlight: "Implemented low-level system programs and algorithms",
+          highlight: "Built algorithms, data structures, and a Solitaire game in C, applying memory management and modular design."
         },
       ],
     },
@@ -49,35 +49,35 @@ export default function Skills() {
       skills: [
         {
           name: "TensorFlow",
-          level: 90,
+          level: 80,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
           highlight:
-            "Trained deep learning models for pothole detection & sentiment analysis",
+            "Designed and implemented deep learning solutions for computer vision (pothole detection) and NLP (sentiment analysis), while developing additional ML models for academic projects.",
         },
         {
           name: "Scikit-learn",
-          level: 92,
+          level: 85,
           icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
           highlight:
-            "Built recommendation systems & sentiment classifiers",
+            "Developed machine learning models and recommendation systems using scikit-learn, implementing algorithms for data analysis and predictive modeling.",
         },
         {
           name: "Pandas",
-          level: 95,
+          level: 90,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
           highlight:
             "Cleaned and processed large-scale datasets for analysis & ML",
         },
         {
           name: "NumPy",
-          level: 93,
+          level: 95,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
           highlight:
             "Optimized numerical computations in ML workflows",
         },
         {
           name: "Jupyter",
-          level: 90,
+          level: 95,
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
           highlight:
             "Used for data exploration and visualization during ML projects",
@@ -151,7 +151,12 @@ export default function Skills() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: skillIndex * 0.1 }}
-                    className="flex gap-4 bg-muted p-4 rounded-lg shadow-sm"
+                    whileHover={{ 
+                      y: -3,
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                      transition: { duration: 0.1 } 
+                    }}
+                    className="flex gap-4 bg-muted p-4 rounded-lg shadow-sm hover:bg-muted/80 transition-colors duration-100"
                   >
                     <Image
                       src={skill.icon}
