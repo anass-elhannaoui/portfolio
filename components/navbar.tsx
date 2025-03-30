@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -21,10 +22,12 @@ export function Navbar() {
   return (
     <nav className="fixed w-full bg-background/80 backdrop-blur-sm z-50 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between py-3">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold">
-              Anass El Hannaoui
+            <Link href="/" className="flex items-center gap-2">
+              
+              <span className="text-lg font-semibold hidden sm:inline-block">ANS</span>
+              <span className="text-lg font-semibold sm:hidden">ANS</span> {/* Shorter name on mobile */}
             </Link>
           </div>
 
@@ -76,8 +79,8 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="md:hidden pb-4">
+            <div className="px-2 pt-2 space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}

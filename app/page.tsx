@@ -58,7 +58,7 @@ export default function Home() {
               variants={itemVariants}
               className="text-xl font-medium text-primary mb-4 tracking-wider"
             >
-              hi ayoub
+              HELLO, I'M
             </motion.h2>
             
             <motion.h1 

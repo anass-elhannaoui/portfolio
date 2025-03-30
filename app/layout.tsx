@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Anass El Hannaoui | Cloud & AI Engineer',
+    default: 'Anass El Hannaoui | Data Science & Cloud student',
     template: '%s | Anass El Hannaoui'
   },
   description: 'Cloud Solutions Architect and AI Engineer specializing in scalable systems, machine learning implementations, and DevOps automation.',

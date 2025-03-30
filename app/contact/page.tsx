@@ -71,7 +71,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:col-span-2 bg-card rounded-xl p-8 shadow-lg border border-border/50 h-fit sticky top-24"
+            className="md:col-span-2 bg-card rounded-xl p-8 shadow-lg border border-border/50 h-fit"
           >
             <h2 className="text-2xl font-semibold mb-8 border-b pb-4">
               Contact Information
