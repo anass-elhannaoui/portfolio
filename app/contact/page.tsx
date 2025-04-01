@@ -68,7 +68,7 @@ export default function Contact() {
       y: 0,
       transition: {
         delay: i * 0.1,
-        duration: 0.5,
+        duration: 0.2,
         ease: "easeOut"
       }
     })
@@ -80,7 +80,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           className="text-center mb-16"
         >
           <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
@@ -95,7 +95,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="bg-card rounded-xl p-8 shadow-lg border border-border/50 h-full flex flex-col"
           >
             <h2 className="text-2xl font-semibold mb-8 border-b pb-4">
@@ -155,14 +155,14 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="bg-card rounded-xl shadow-lg border border-border/50 overflow-hidden h-full flex flex-col"
           >
             {isSubmitted ? (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.2 }}
                 className="bg-green-50 dark:bg-green-900/20 p-8 rounded-lg text-center flex flex-col items-center justify-center h-full w-full"
               >
                 <CheckCircle2 className="w-16 h-16 text-green-500 mb-6" />

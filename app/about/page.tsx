@@ -128,7 +128,7 @@ export default function About() {
           animate="visible"
           variants={containerVariants}
           className="mb-16"
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.3 }}
         >
           <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
             <div className="shrink-0">
@@ -192,6 +192,7 @@ export default function About() {
           animate="visible"
           variants={containerVariants}
           className="mb-16"
+          
         >
           <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
             <GraduationCap className="mr-2 text-primary" />

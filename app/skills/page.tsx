@@ -129,7 +129,7 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          
+          transition={{ durtion: 0.2}}
         >
           <h1 className="text-4xl font-bold mb-8">Skills</h1>
         </motion.div>

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowLeft } from "lucide-react";
@@ -17,7 +18,6 @@ export default function CVViewer() {
   useEffect(() => {
     setIsMounted(true);
     
-    // Verify PDF exists
     fetch(pdfFile.url)
       .then(res => {
         if (!res.ok) throw new Error("PDF not found");
@@ -31,43 +31,75 @@ export default function CVViewer() {
   };
 
   if (!isMounted) return (
-    <div className="min-h-screen pt-14 bg-background flex items-center justify-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen pt-14 bg-background flex items-center justify-center"
+    >
       Loading viewer...
-    </div>
+    </motion.div>
   );
 
   if (pdfError) return (
-    <div className="min-h-screen pt-14 bg-background flex items-center justify-center">
-      <div className="text-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen pt-14 bg-background flex items-center justify-center"
+    >
+      <motion.div 
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        className="text-center"
+      >
         <p className="mb-4">PDF could not be loaded</p>
-        <Button asChild>
-          <a href={pdfFile.url} download className="inline-flex gap-2">
-            <Download className="h-4 w-4" /> Download CV
-          </a>
-        </Button>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen pt-8 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <Button asChild variant="outline">
-            <Link href="/about" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" /> Back to About
-            </Link>
-          </Button>
-          
-          <Button asChild variant="default" onClick={handleDownloadClick}>
-            <a className="flex items-center gap-2">
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button asChild>
+            <a href={pdfFile.url} download className="inline-flex gap-2">
               <Download className="h-4 w-4" /> Download CV
             </a>
           </Button>
-        </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
 
-        {/* PDF Viewer */}
-        <div className="border rounded-lg overflow-hidden shadow-lg bg-white h-[80vh]">
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen pt-8 bg-background"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex justify-between items-center mb-6"
+        >
+          <motion.div whileHover={{ x: -2 }} whileTap={{ scale: 0.95 }}>
+            <Button asChild variant="outline">
+              <Link href="/about" className="flex items-center gap-2">
+                <ArrowLeft className="h-4 w-4" /> Back to About
+              </Link>
+            </Button>
+          </motion.div>
+          
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button asChild variant="default" onClick={handleDownloadClick}>
+              <a className="flex items-center gap-2">
+                <Download className="h-4 w-4" /> Download CV
+              </a>
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="border rounded-lg overflow-hidden shadow-lg bg-white h-[80vh]"
+          whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+        >
           <iframe 
             src={`${pdfFile.url}#toolbar=0`}
             width="100%"
@@ -76,13 +108,12 @@ export default function CVViewer() {
             title="CV Preview"
             onError={() => setPdfError(true)}
           />
-        </div>
+        </motion.div>
 
-        {/* Trigger the download when clicked */}
         {isDownloadClicked && (
           <a href={pdfFile.url} download={pdfFile.name} className="hidden" />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
