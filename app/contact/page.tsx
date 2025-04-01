@@ -4,19 +4,39 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, Phone, Send, CheckCircle2, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { Github, Linkedin, Mail, Phone, Send, CheckCircle2, Loader2, X } from "lucide-react";
+import { useState, useRef } from "react";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   
+  // Add this function to validate email properly
+  const isValidEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Get the email value from the form
+    const emailInput = formRef.current?.querySelector('input[name="email"]') as HTMLInputElement;
+    const emailValue = emailInput?.value || '';
+    
+    // Validate email format
+    if (!isValidEmail(emailValue)) {
+      alert("Please enter a valid email address with a proper domain (e.g., .com, .org).");
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
       const formData = new FormData(e.currentTarget);
+      formData.append('submission_timestamp', new Date().toISOString());
+      
       const response = await fetch("https://formsubmit.co/anass.elhannaoui.io@gmail.com", {
         method: "POST",
         body: formData,
@@ -24,15 +44,21 @@ export default function Contact() {
       
       if (response.ok) {
         setIsSubmitted(true);
-        (e.target as HTMLFormElement).reset();
+        formRef.current?.reset();
       } else {
-        console.error("Form submission failed");
+        console.error("Form submission error:", response.status);
+        alert("There was an issue with the form submission. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      alert("There was an error submitting the form. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleDiscard = () => {
+    formRef.current?.reset();
   };
 
   const fadeInUp = {
@@ -49,7 +75,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-24 bg-gradient-to-b from-background to-background/90">
+    <div className="min-h-screen pt-14 pb-10 bg-gradient-to-b from-background to-background/90">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -57,26 +83,25 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl font-bold mb-4 bg-clip-text ">
-            Get in Touch
-          </h1>
+          <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            I'm always open to new opportunities and collaborations. Feel free to reach out!
+            I'm always open to new opportunities and collaborations.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-5 gap-8 relative">
+        <div className="grid md:grid-cols-2 gap-8 relative items-stretch">
+
           {/* Left sidebar with contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:col-span-2 bg-card rounded-xl p-8 shadow-lg border border-border/50 h-fit"
+            className="bg-card rounded-xl p-8 shadow-lg border border-border/50 h-full flex flex-col"
           >
             <h2 className="text-2xl font-semibold mb-8 border-b pb-4">
               Contact Information
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-8 flex-grow flex flex-col justify-center">
               {[
                 { 
                   icon: <Mail className="h-5 w-5" />, 
@@ -124,160 +149,166 @@ export default function Contact() {
                 </motion.div>
               ))}
             </div>
-            
-            <div className="mt-16 pt-8 border-t border-border/50">
-              <p className="text-muted-foreground text-sm">
-                Let's connect and discuss how we can collaborate on your next project.
-              </p>
-            </div>
           </motion.div>
 
-          {/* Right form section */}
+          {/* Right form section - Gmail Style */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="md:col-span-3 bg-card rounded-xl p-8 shadow-lg border border-border/50"
+            className="bg-card rounded-xl shadow-lg border border-border/50 overflow-hidden h-full flex flex-col"
           >
             {isSubmitted ? (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
-                className="bg-green-50 dark:bg-green-900/20 p-8 rounded-lg text-center flex flex-col items-center justify-center min-h-[400px]"
+                className="bg-green-50 dark:bg-green-900/20 p-8 rounded-lg text-center flex flex-col items-center justify-center h-full w-full"
               >
                 <CheckCircle2 className="w-16 h-16 text-green-500 mb-6" />
-                <h3 className="text-2xl font-medium mb-3">Message Sent Successfully!</h3>
-                <p className="text-muted-foreground text-lg mb-8">
-                  Thank you for reaching out. I'll get back to you as soon as possible.
+                <h3 className="text-2xl font-medium mb-3">Message Sent!</h3>
+                <p className="text-muted-foreground mb-8">
+                  Thank you for reaching out. I'll respond soon.
                 </p>
                 <Button 
                   onClick={() => setIsSubmitted(false)} 
                   variant="outline" 
-                  size="lg"
                   className="px-6"
                 >
-                  Send another message
+                  New Message
                 </Button>
               </motion.div>
             ) : (
               <form 
+                ref={formRef}
                 onSubmit={handleSubmit} 
-                className="space-y-6" 
-                action="https://formsubmit.co/anass.elhannaoui.io@gmail.com" 
+                // action="a39ae75face4da09e5068c26a6c6ef0b" 
                 method="POST"
+                className="h-full flex flex-col"
               >
-                <h2 className="text-2xl font-semibold mb-6">Send a Message</h2>
-                
+                {/* Gmail-style header */}
+                <div className="bg-gray-100 dark:bg-gray-800 px-6 py-3 border-b border-border/50 flex justify-between items-center">
+                  <h2 className="text-lg font-medium">Send a message</h2>
+                  
+                </div>
+
                 {/* FormSubmit.co configuration */}
                 <input type="hidden" name="_subject" value="New contact form submission" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_next" value="false" />
                 <input type="text" name="_honey" style={{ display: "none" }} />
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div className="p-6 space-y-4 flex-grow flex flex-col">
+                  {/* Recipient Field */}
                   <motion.div
                     custom={0}
                     initial="hidden"
                     animate="visible"
                     variants={fadeInUp}
+                    className="flex items-center border-b border-border/50 py-2"
                   >
-                    <label htmlFor="name" className="text-sm font-medium mb-2 block">
-                      Name
-                    </label>
+                    <span className="text-sm font-medium w-16 shrink-0">To:</span>
                     <Input
-                      id="name"
                       type="text"
-                      name="name"
-                      placeholder="Your Name"
-                      className="w-full"
-                      required
+                      name="to"
+                      value="anass.elhannaoui.io@gmail.com"
+                      className="flex-1 border-0 px-0 shadow-none focus-visible:ring-0 bg-transparent"
+                      readOnly
                     />
                   </motion.div>
-                  
+
+                  {/* From Field */}
                   <motion.div
                     custom={1}
                     initial="hidden"
                     animate="visible"
                     variants={fadeInUp}
+                    className="flex items-center border-b border-border/50 py-2"
                   >
-                    <label htmlFor="email" className="text-sm font-medium mb-2 block">
-                      Email Address
-                    </label>
+                    <span className="text-sm font-medium w-16 shrink-0">From:</span>
                     <Input
-                      id="email"
                       type="email"
                       name="email"
                       placeholder="your.email@example.com"
-                      className="w-full"
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      title="Please enter a valid email address with a proper domain (e.g., .com, .org)"
+                      className="flex-1 border-0 px-0 shadow-none focus-visible:ring-0 bg-transparent"
                       required
                     />
                   </motion.div>
-                </div>
-                
-                <motion.div
-                  custom={2}
-                  initial="hidden"
-                  animate="visible"
-                  variants={fadeInUp}
-                >
-                  <label htmlFor="subject" className="text-sm font-medium mb-2 block">
-                    Subject
-                  </label>
-                  <Input
-                    id="subject"
-                    type="text"
-                    name="subject"
-                    placeholder="How can I help you?"
-                    className="w-full"
-                    required
-                  />
-                </motion.div>
-                
-                <motion.div
-                  custom={3}
-                  initial="hidden"
-                  animate="visible"
-                  variants={fadeInUp}
-                >
-                  <label htmlFor="message" className="text-sm font-medium mb-2 block">
-                    Message
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Tell me about your project, questions, or anything else..."
-                    className="w-full min-h-[180px] resize-none"
-                    required
-                  />
-                </motion.div>
-                
-                <motion.div
-                  custom={4}
-                  initial="hidden"
-                  animate="visible"
-                  variants={fadeInUp}
-                  className="pt-2"
-                >
-                  <Button 
-                    type="submit" 
-                    className="w-full py-6 text-base font-medium" 
-                    disabled={isSubmitting}
-                    size="lg"
+
+                  {/* Subject Field */}
+                  <motion.div
+                    custom={2}
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    className="flex items-center border-b border-border/50 py-2"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Sending Message...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </motion.div>
+                    <span className="text-sm font-medium w-16 shrink-0">Subject:</span>
+                    <Input
+                      type="text"
+                      name="subject"
+                      placeholder="How can I help you?"
+                      className="flex-1 border-0 px-0 shadow-none focus-visible:ring-0 bg-transparent"
+                      required
+                    />
+                  </motion.div>
+
+                  {/* Message Body - using flex-grow to fill available space */}
+                  <motion.div
+                    custom={3}
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    className="flex-grow flex flex-col mt-4"
+                  >
+                    <Textarea
+                      name="message"
+                      placeholder="Write your message here..."
+                      className="w-full h-full min-h-[200px] border-0 px-0 shadow-none resize-none focus-visible:ring-0 text-base bg-transparent flex-grow"
+                      required
+                    />
+                  </motion.div>
+
+                  {/* Action Buttons */}
+                  <motion.div
+                    custom={4}
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    className="flex justify-between items-center pt-4"
+                  >
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm"
+                      className="text-destructive hover:text-destructive rounded-full"
+                      onClick={handleDiscard}
+                    >
+                      Discard
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      className="px-6 font-medium rounded-full" 
+                      disabled={isSubmitting}
+                      size="sm"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Send
+                        </>
+                      )}
+                    </Button>
+                    
+                  </motion.div>
+                </div>
               </form>
             )}
           </motion.div>
