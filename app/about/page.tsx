@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronDown, Calendar, GraduationCap, Cpu, ArrowRight, Code } from "lucide-react";
+import { ChevronDown, Calendar, GraduationCap, Cpu, ArrowRight, Code, FileText, Download, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -52,7 +52,7 @@ export default function About() {
       degree: "Science Physique - Mention Très Bien",
       period: "Graduated June 2021",
       description: "Graduated with high honors (Très Bien) in Physical Sciences, which provided a strong foundation for my engineering studies.",
-      image: "/images/lycee-laymoune.jpeg",
+      image: "/images/lycee-laymoune.jpg",
     },
   ];
 
@@ -120,7 +120,7 @@ export default function About() {
   };
 
   return (
-    <div className="min-h-screen pt-24 bg-background">
+    <div className="min-h-screen pt-14 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Profile Section */}
         <motion.div
@@ -146,6 +146,41 @@ export default function About() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I am a Fourth-year Data Science & Cloud Computing Engineering student passionate about AI, Machine Learning, and the ever-evolving world of technology. My curiosity drives me to explore diverse domains, from data-driven insights to scalable cloud systems and DevOps practices. While my academic foundation is in Data Science and Cloud Computing, I'm actively expanding my skills in DevOps, Software Development, and building secure, intelligent systems.
               </p>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* CV Section */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="mb-16"
+        >
+          <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
+            <FileText className="mr-2 text-primary" />
+            Curriculum Vitae
+          </motion.h2>
+          
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 p-8 border rounded-lg bg-card shadow-sm"
+          >
+            <div className="text-center sm:text-left mb-4 sm:mb-0">
+              <h3 className="text-xl font-medium mb-2">My Resume</h3>
+              <p className="text-muted-foreground">You can view or download my CV to learn more about my professional background and skills</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild variant="outline" size="lg" className="flex items-center gap-2">
+                <Link href="/CV" >
+                  <Eye className="h-4 w-4" /> View CV
+                </Link>
+              </Button>
+              <Button asChild variant="default" size="lg" className="flex items-center gap-2">
+                <a href="/docs/AnassElHannaoui-CV.pdf" download="AnassElHannaoui-CV.pdf">
+                  <Download className="h-4 w-4" /> Download CV
+                </a>
+              </Button>
             </div>
           </motion.div>
         </motion.div>
