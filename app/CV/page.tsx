@@ -50,7 +50,7 @@ export default function CVViewer() {
   );
 
   return (
-    <div className="min-h-screen pt-14 bg-background">
+    <div className="min-h-screen pt-8 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-6">
           <Button asChild variant="outline">
