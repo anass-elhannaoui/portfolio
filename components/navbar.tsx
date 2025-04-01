@@ -14,9 +14,11 @@ export function Navbar() {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
+    { name: "CV", path: "/CV" },
     { name: "Projects", path: "/projects" },
     { name: "Skills", path: "/skills" },
-    { name: "Contact", path: "/contact" },
+    { name: "Contact", path: "/contact" }
+
   ];
 
   return (
