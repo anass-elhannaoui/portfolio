@@ -129,7 +129,7 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          
         >
           <h1 className="text-4xl font-bold mb-8">Skills</h1>
         </motion.div>
@@ -140,7 +140,7 @@ export default function Skills() {
               key={categoryIndex}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+              transition={{ duration: 0.2, delay: categoryIndex * 0.1 }}
               className="bg-card p-6 rounded-xl shadow-lg"
             >
               <h2 className="text-2xl font-semibold mb-6">{category.title}</h2>
@@ -150,7 +150,7 @@ export default function Skills() {
                     key={skillIndex}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: skillIndex * 0.1 }}
+                    transition={{ duration: 0.2, delay: skillIndex * 0.1 }}
                     whileHover={{ 
                       y: -3,
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",

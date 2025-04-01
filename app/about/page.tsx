@@ -128,6 +128,7 @@ export default function About() {
           animate="visible"
           variants={containerVariants}
           className="mb-16"
+          transition={{ duration: 0.2 }}
         >
           <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
             <div className="shrink-0">

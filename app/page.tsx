@@ -15,7 +15,7 @@ export default function Home() {
       opacity: 1,
       transition: { 
         staggerChildren: 0.1,
-        delayChildren: 0.3
+        delayChildren: 0.2
       } 
     }
   };
@@ -25,7 +25,7 @@ export default function Home() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: 0.2, ease: "easeOut" }
     }
   };
 
@@ -34,7 +34,7 @@ export default function Home() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: 0.2, ease: "easeOut" }
     },
     hover: {
       y: -5,
@@ -142,7 +142,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="w-full md:w-1/2 flex justify-center"
           >
             <div className="relative w-full max-w-[380px] aspect-square">
@@ -239,7 +239,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.3, delay: 0.8, ease: "easeOut" }}
           className="text-center mt-24 p-12 border border-border rounded-xl bg-gradient-to-r from-primary/5 to-primary/10 backdrop-blur-sm"
         >
           <h2 className="text-3xl font-bold mb-4 tracking-tight">Let's Build Something Amazing</h2>

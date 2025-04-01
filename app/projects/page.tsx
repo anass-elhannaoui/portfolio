@@ -207,22 +207,33 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
         >
           <h1 className="text-4xl font-bold mb-8">Featured Projects</h1>
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {["All", "Machine Learning", "Web Development"].map((cat) => (
+        {["All", "Machine Learning", "Web Development"].map((cat, index) => (
+          <motion.div
+            key={cat}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.1,
+              delay: index * 0.1 // Staggered animation
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <Button
-              key={cat}
               variant={filter === cat ? "default" : "outline"}
               onClick={() => setFilter(cat)}
+              className="transition-all duration-300"
             >
               {cat}
             </Button>
-          ))}
-        </div>
+          </motion.div>
+        ))}
+      </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project, index) => (
@@ -230,7 +241,7 @@ export default function Projects() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+             
               className="bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
               onClick={() => openProjectDetails(project)}
             >
@@ -287,7 +298,7 @@ export default function Projects() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
+              
               className="bg-background rounded-2xl shadow-lg max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
