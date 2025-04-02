@@ -7,6 +7,10 @@ import { Footer } from '@/components/footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/icons/logo.svg',
+    
+  },
   title: {
     default: 'Anass El Hannaoui | Data Science & Cloud student',
     template: '%s | Anass El Hannaoui'
