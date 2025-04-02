@@ -2,7 +2,7 @@
 title: "Getting Started with Next.js and TypeScript"
 date: "2025-03-15"
 excerpt: "Learn how to set up a new project with Next.js and TypeScript, and discover the benefits of this powerful combination."
-coverImage: "/images/blog/nextjs-typescript.jpg"
+coverImage: "/images/blog/nextjs-typescript.png"
 tags: ["Next.js", "TypeScript", "Web Development"]
 author: "Your Name"
 ---
