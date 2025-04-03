@@ -6,6 +6,10 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import Link from 'next/link';
+import Image from 'next/image';
+import ShareButton from "@/components/sharePostButton/ShareButton";
+
+
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -53,68 +57,106 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const post = await getPostBySlug(params.slug);
   
   return (
-    <div className="container mx-auto px-4 py-12 max-w-4xl">
-      <Link 
-        href="/blog" 
-        className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-8"
-      >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="h-5 w-5 mr-2" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
+    <div className="min-h-screen pt-14 pb-10 bg-background">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <Link 
+          href="/blog" 
+          className="inline-flex items-center text-primary hover:text-primary/80 transition-colors mb-8 group"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Back to all posts
-      </Link>
-      
-      <article>
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{post.frontMatter.title}</h1>
-          
-          <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
-            <time dateTime={post.frontMatter.date}>
-              {new Date(post.frontMatter.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-            <span className="mx-2">•</span>
-            <span>{post.frontMatter.author}</span>
-          </div>
-          
-          {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {post.frontMatter.tags.map((tag: string) => (
-                <span 
-                  key={tag}
-                  className="px-3 py-1 text-sm rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-          
-          {post.frontMatter.coverImage && (
-            <div className="relative h-96 w-full rounded-lg overflow-hidden mb-8">
-              <img 
-                src={post.frontMatter.coverImage} 
-                alt={post.frontMatter.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-        </header>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to all posts
+        </Link>
         
-        <div 
-          className="prose prose-lg dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      </article>
+        <article className="animate-fade-in  translate-y-2">
+          <header className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.frontMatter.title}</h1>
+            
+            <div className="flex flex-wrap items-center text-muted-foreground mb-4 gap-2 sm:gap-0">
+              <time dateTime={post.frontMatter.date} className="text-sm">
+                {new Date(post.frontMatter.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              <span className="hidden sm:inline mx-2">•</span>
+              <span className="text-sm">{post.frontMatter.author}</span>
+            </div>
+            
+            {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {post.frontMatter.tags.map((tag: string) => (
+                  <span 
+                    key={tag}
+                    className="px-3 py-1 text-xs md:text-sm rounded-full bg-accent text-accent-foreground transition-colors hover:bg-accent/80"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            
+            {post.frontMatter.coverImage && (
+              <div className="relative w-full h-48 sm:h-64 md:h-96 rounded-lg overflow-hidden mb-8 shadow-md transition-all hover:shadow-lg">
+                <img 
+                  src={post.frontMatter.coverImage} 
+                  alt={post.frontMatter.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </header>
+          
+          <div 
+            className="prose prose-sm sm:prose-base md:prose-lg dark:prose-invert max-w-none
+                       prose-headings:scroll-mt-20 prose-headings:font-bold
+                       prose-headings:text-foreground prose-p:text-muted-foreground
+                       prose-a:text-primary prose-a:no-underline prose-a:hover:underline
+                       prose-img:rounded-lg prose-img:shadow-md
+                       prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 prose-blockquote:p-2
+                       prose-code:text-muted-foreground prose-code:bg-muted prose-code:p-1 prose-code:rounded
+                       prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:shadow-sm"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+          
+          <div className="mt-12 pt-8 border-t border-border">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 items-start sm:items-center">
+              <Link 
+                href="/blog" 
+                className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to all posts
+              </Link>
+              
+              <div className="flex items-center space-x-4">
+              <ShareButton 
+                title={post.frontMatter.title} 
+                text={post.frontMatter.excerpt || "Check out this amazing article!"} 
+                url={typeof window !== "undefined" ? window.location.href : ""} 
+              />
+
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   );
 }
