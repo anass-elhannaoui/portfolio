@@ -4,7 +4,7 @@ date: "2025-03-15"
 excerpt: "Learn how to set up a new project with Next.js and TypeScript, and discover the benefits of this powerful combination."
 coverImage: "/images/blog/nextjs-typescript.png"
 tags: ["Next.js", "TypeScript", "Web Development"]
-author: "Your Name"
+author: "Anass El Hannaoui"
 ---
 
 # Getting Started with Next.js and TypeScript
@@ -47,9 +47,9 @@ cd my-nextjs-app
 npm install --save-dev typescript @types/react @types/node
 ```
 
-### 3. Create a tsconfig.json file
+### 3. Create a `tsconfig.json` file
 
-Next.js will automatically create a `tsconfig.json` file for you when you start the development server. However, you can also create one manually:
+Next.js will automatically create a `tsconfig.json` file when you start the development server. However, you can also create one manually:
 
 ```json
 {
@@ -74,11 +74,11 @@ Next.js will automatically create a `tsconfig.json` file for you when you start 
 }
 ```
 
-### 4. Rename your JavaScript files to TypeScript
+### 4. Rename JavaScript files to TypeScript
 
-Change the file extensions:
-- `.js` to `.ts`
-- `.jsx` to `.tsx`
+Change file extensions:
+- `.js` → `.ts`
+- `.jsx` → `.tsx`
 
 ## A Simple Example
 
@@ -103,14 +103,15 @@ export default function Home({ greeting }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      greeting: 'Hello, Next.js + TypeScript!',
-    },
+      greeting: 'Hello, Next.js + TypeScript!'
+    }
   };
 };
 ```
 
 ## Conclusion
 
-Using Next.js with TypeScript provides a robust foundation for building modern web applications. The combination offers excellent developer experience, type safety, and powerful features that make it easier to build complex applications.
+Using Next.js with TypeScript provides a robust foundation for building modern web applications. This combination offers excellent developer experience, type safety, and powerful features that simplify building complex applications.
 
 In future posts, we'll dive deeper into specific aspects of Next.js and TypeScript development, including data fetching, authentication, and deployment strategies.
+

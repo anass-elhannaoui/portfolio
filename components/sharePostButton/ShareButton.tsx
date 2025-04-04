@@ -4,8 +4,10 @@ import React, { useState } from "react";
 
 export default function ShareButton({ title, text, url }: { title: string; text: string; url: string }) {
   const [copied, setCopied] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const sharePost = async () => {
+    // Check if Web Share API is available (mobile devices)
     if (navigator.share) {
       try {
         await navigator.share({
@@ -16,13 +18,35 @@ export default function ShareButton({ title, text, url }: { title: string; text:
       } catch (error) {
         console.error("Error sharing:", error);
       }
-    } else {
+    } 
+    // Fallback for desktop
+    else {
       try {
         await navigator.clipboard.writeText(url);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        setShowTooltip(true);
+        setTimeout(() => {
+          setShowTooltip(false);
+          setTimeout(() => setCopied(false), 300); // Small delay for smooth transition
+        }, 2000);
       } catch (error) {
+        // Final fallback for browsers without clipboard API
         console.error("Clipboard copy failed:", error);
+        
+        // Create a temporary input element to copy
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        
+        setCopied(true);
+        setShowTooltip(true);
+        setTimeout(() => {
+          setShowTooltip(false);
+          setTimeout(() => setCopied(false), 300);
+        }, 2000);
       }
     }
   };
@@ -50,10 +74,13 @@ export default function ShareButton({ title, text, url }: { title: string; text:
         </svg>
         {copied ? "Copied!" : "Share"}
       </button>
-      {copied && (
-        <span className="absolute top-full left-0 mt-1 text-xs bg-black text-white py-1 px-2 rounded">
-          Link copied!
-        </span>
+      {showTooltip && (
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2">
+          <div className="bg-black text-white text-xs py-1 px-2 rounded whitespace-nowrap">
+            Link copied to clipboard!
+            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
+          </div>
+        </div>
       )}
     </div>
   );
