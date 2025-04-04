@@ -3,7 +3,9 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Tag from '@/components/Tag/page';
 
 type Post = {
   slug: string;
@@ -19,92 +21,86 @@ type Post = {
 export function PostsList({ posts }: { posts: Post[] }) {
   return (
     <>
-      <motion.h1 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2 }}
-        className="text-4xl font-bold mb-8"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mb-12"
       >
-        Blog
-      </motion.h1>
+        <h1 className="text-4xl font-bold mb-4">Blog</h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Articles, tutorials, and guides on modern web development with Next.js and TypeScript.
+        </p>
+      </motion.div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post, index) => (
-          <motion.div
-            key={post.slug}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: index * 0.1 }}
-          >
-            <Link 
-              href={`/blog/${post.slug}`} 
-              className="group bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Rest of your post card code remains the same */}
-              {post.frontMatter.coverImage && (
-                <div className="relative h-48 w-full overflow-hidden">
-                  <img 
-                    src={post.frontMatter.coverImage} 
-                    alt={post.frontMatter.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
-                    <span className="absolute top-2 left-2 px-2 py-1 text-xs rounded-full bg-accent text-accent-foreground">
-                      {post.frontMatter.tags[0]}
-                    </span>
-                  )}
-                </div>
-              )}
-              
-              <div className="p-6">
-                <div className="flex items-center mb-2">
-                  <span className="text-sm text-muted-foreground">
-                    {new Date(post.frontMatter.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </div>
-                
-                <h2 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                  {post.frontMatter.title}
-                </h2>
-                
-                <p className="text-muted-foreground mb-4 line-clamp-3">
-                  {post.frontMatter.excerpt}
-                </p>
-                
-                {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {post.frontMatter.tags.map((tag) => (
-                      <span 
-                        key={tag}
-                        className="px-2 py-1 text-xs rounded-full bg-accent text-accent-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
-                <div className="mt-4 flex items-center text-primary font-medium">
-                  Read more
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
+          <PostCard key={post.slug} post={post} index={index} />
         ))}
       </div>
     </>
   );
 }
+
+const PostCard = ({ post, index }: { post: Post, index: number }) => {
+  const readingTime = Math.ceil(post.frontMatter.excerpt.split(/\s+/).length / 200);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+      className="h-full"
+    >
+      <Link 
+        href={`/blog/${post.slug}`} 
+        className="group flex flex-col h-full bg-card rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border border-border"
+      >
+        {post.frontMatter.coverImage && (
+          <div className="relative aspect-video w-full overflow-hidden">
+            <Image
+              src={post.frontMatter.coverImage}
+              alt={post.frontMatter.title}
+              width={400}
+              height={225}
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+        )}
+        
+        <div className="flex flex-col flex-grow p-6">
+          <div className="flex items-center gap-2 mb-3">
+            <time className="text-xs text-muted-foreground">
+              {new Date(post.frontMatter.date).toLocaleDateString()}
+            </time>
+            <span className="text-xs text-muted-foreground">•</span>
+            <span className="text-xs text-muted-foreground">
+              {readingTime} min read
+            </span>
+          </div>
+          
+          <h2 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+            {post.frontMatter.title}
+          </h2>
+          
+          <p className="text-muted-foreground mb-4 line-clamp-3 flex-grow">
+            {post.frontMatter.excerpt}
+          </p>
+          
+          {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-auto">
+              {post.frontMatter.tags.slice(0, 2).map((tag) => (
+                <Tag key={tag} name={tag} size="sm" />
+              ))}
+              {post.frontMatter.tags.length > 2 && (
+                <span className="text-xs text-muted-foreground self-center">
+                  +{post.frontMatter.tags.length - 2} more
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </Link>
+    </motion.div>
+  );
+};

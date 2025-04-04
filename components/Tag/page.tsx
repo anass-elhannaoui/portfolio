@@ -1,5 +1,5 @@
-// app/components/Tag/page.tsx
 import React from 'react';
+import { motion } from 'framer-motion';
 
 type TagProps = {
   name: string;
@@ -8,16 +8,17 @@ type TagProps = {
 
 export default function Tag({ name, size = 'md' }: TagProps) {
   const sizeClasses = {
-    sm: 'px-2 py-1 text-xs',
+    sm: 'px-2 py-0.5 text-xs',
     md: 'px-3 py-1 text-sm',
-    lg: 'px-4 py-2 text-base',
+    lg: 'px-4 py-1.5 text-base',
   };
   
   return (
-    <span 
-      className={`${sizeClasses[size]} rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200`}
+    <motion.span 
+      whileHover={{ scale: 1.05 }}
+      className={`${sizeClasses[size]} inline-flex items-center rounded-full bg-accent text-accent-foreground font-medium`}
     >
       {name}
-    </span>
+    </motion.span>
   );
 }
