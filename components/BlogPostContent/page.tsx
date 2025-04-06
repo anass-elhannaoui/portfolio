@@ -63,10 +63,10 @@ export default function BlogPostContent({ post }: { post: any }) {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back to Blog with animation */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} >
           <Link 
             href="/blog" 
-            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors mb-6 text-sm sm:text-base py-2"
+            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -179,7 +179,6 @@ export default function BlogPostContent({ post }: { post: any }) {
                       dark:prose-invert"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
-          
           {/* Footer Section with animations */}
           <motion.div 
             variants={fadeIn}
@@ -187,7 +186,7 @@ export default function BlogPostContent({ post }: { post: any }) {
           >
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               {/* Back to Blog */}
-              <motion.div whileHover={{ x: -3 }}>
+              <motion.div whileHover={{ scale: 0.95 }}>
                 <Link 
                   href="/blog" 
                   className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm"
@@ -206,7 +205,7 @@ export default function BlogPostContent({ post }: { post: any }) {
               </motion.div>
 
               {/* Share Button with animation */}
-              <motion.div whileHover={{ scale: 1.05 }}>
+              <motion.div whileHover={{ scale: 0.95 }}>
                 <ShareButton 
                   title={post.frontMatter.title} 
                   text={post.frontMatter.excerpt || "Check out this article!"} 
