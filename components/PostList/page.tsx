@@ -15,6 +15,7 @@ type Post = {
     excerpt: string;
     coverImage?: string;
     tags?: string[];
+    readingTime: string; // Add this to your type definition
   };
 };
 
@@ -43,7 +44,7 @@ export function PostsList({ posts }: { posts: Post[] }) {
 }
 
 const PostCard = ({ post, index }: { post: Post, index: number }) => {
-  const readingTime = Math.ceil(post.frontMatter.excerpt.split(/\s+/).length / 200);
+ 
 
   return (
     <motion.div
@@ -75,7 +76,7 @@ const PostCard = ({ post, index }: { post: Post, index: number }) => {
             </time>
             <span className="text-xs text-muted-foreground">•</span>
             <span className="text-xs text-muted-foreground">
-              {readingTime} min read
+              {post.frontMatter.readingTime} 
             </span>
           </div>
           

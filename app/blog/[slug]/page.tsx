@@ -95,7 +95,7 @@ function processCustomComponents(html: string): string {
 }
 
 function calculateReadingTime(content: string): string {
-  const wordsPerMinute = 200;
+  const wordsPerMinute = 185;
   const wordCount = content.split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / wordsPerMinute);
   return `${readingTime} min read`;

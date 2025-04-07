@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Copy, Check } from 'lucide-react';
-
+import ShareButton from '@/components/sharePostButton/ShareButton';
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -288,9 +288,11 @@ export default function BlogPostContent({ post }: BlogPostProps) {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
+          {/*the footer section in BlogPostContent component */}
           <motion.div variants={fadeIn} className="mt-8 pt-4 border-t border-border">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <motion.div whileHover={{ scale: 0.95 }}>
+              {/* Back button - left side */}
+              <motion.div whileHover={{ scale: 0.95 }} className="flex-1 sm:flex-none">
                 <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -298,8 +300,18 @@ export default function BlogPostContent({ post }: BlogPostProps) {
                   Back to all posts
                 </Link>
               </motion.div>
+
+              {/* Share button - right side */}
+              <motion.div whileHover={{ scale: 0.95 }} className="flex-1 sm:flex-none text-right">
+                <ShareButton 
+                  title={post.frontMatter.title}
+                  text={`${post.frontMatter.title}\n${post.frontMatter.excerpt}`}
+                  url={shareUrl}
+                />
+              </motion.div>
             </div>
           </motion.div>
+
         </motion.article>
       </div>
     </motion.div>

@@ -13,9 +13,15 @@ type Post = {
     excerpt: string;
     coverImage?: string;
     tags?: string[];
+    readingTime: string;
   };
 };
-
+function calculateReadingTime(content: string): string {
+  const wordsPerMinute = 185;
+  const wordCount = content.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+  return `${readingTime} min read`;
+}
 async function getPosts(): Promise<Post[]> {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
@@ -25,7 +31,7 @@ async function getPosts(): Promise<Post[]> {
     .map((filename) => {
       const filePath = path.join(postsDirectory, filename);
       const fileContents = fs.readFileSync(filePath, 'utf8');
-      const { data } = matter(fileContents);
+      const { data, content } = matter(fileContents);
       return {
         slug: filename.replace('.md', ''),
         frontMatter: {
@@ -34,6 +40,7 @@ async function getPosts(): Promise<Post[]> {
           excerpt: data.excerpt || '',
           coverImage: data.coverImage || null,
           tags: data.tags || [],
+          readingTime: calculateReadingTime(content),
         },
       };
     })
