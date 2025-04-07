@@ -47,11 +47,10 @@ async function getPostBySlug(slug: string): Promise<BlogPost> {
     .use(remarkParse)
     .use(remarkRehype, {
       allowDangerousHtml: true,
-      // Remove the custom heading handler that's causing the TypeScript error
     })
     .use(rehypeRaw)
     .use(rehypeSlug) // rehypeSlug already handles adding IDs to headings
-    .use(rehypePrism, {
+    .use(rehypePrism as any, { // Type assertion to bypass the TypeScript error
       ignoreMissing: true,
       plugins: ['line-numbers', 'command-line'],
     })
