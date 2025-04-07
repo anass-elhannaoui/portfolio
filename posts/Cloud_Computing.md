@@ -71,11 +71,11 @@ This simple script shows how easy it is to launch a global website using cloud r
 
 ## Popular Cloud Providers at a Glance
 
-| Provider | Services |
-|---------|----------|
-| **AWS** | EC2, S3, Lambda, RDS, CloudFront |
-| **Azure** | VMs, Azure Functions, Blob Storage, Cosmos DB |
-| **GCP** | Compute Engine, Cloud Functions, BigQuery, Cloud Storage |
+
+
+- **AWS** : EC2, S3, Lambda, RDS, CloudFront 
+- **Azure** : VMs, Azure Functions, Blob Storage, Cosmos DB 
+- **GCP** :Compute Engine, Cloud Functions, BigQuery, Cloud Storage 
 
 ## Challenges and Considerations
 

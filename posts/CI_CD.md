@@ -82,12 +82,10 @@ This is a basic example. Real-world pipelines often include more steps like lint
 
 ## Popular Tools
 
-| Stage | Tools |
-|------|-------|
-| Source Control | Git, GitHub, GitLab, Bitbucket |
-| CI/CD Server | Jenkins, GitHub Actions, GitLab CI, CircleCI, TravisCI |
-| Containerization | Docker |
-| Deployment | Kubernetes, AWS CodeDeploy, Azure Pipelines |
+-  **Source Control** : Git, GitHub, GitLab, Bitbucket 
+-  **CI/CD Server** : Jenkins, GitHub Actions, GitLab CI, CircleCI, TravisCI 
+-  **Containerization** : Docker 
+-  **Deployment** : Kubernetes, AWS CodeDeploy, Azure Pipelines 
 
 ## Final Thoughts
 
