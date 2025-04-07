@@ -1,13 +1,14 @@
+//components\BlogPostContent\page.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import ShareButton from '@/components/sharePostButton/ShareButton';
 import { useEffect, useRef } from 'react';
-import 'prismjs/themes/prism-tomorrow.css'; // Import a Prism theme for code highlighting
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark, tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { Copy, Check } from 'lucide-react';
 
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -42,15 +43,175 @@ const slideUp = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.2 } },
 };
 
-export default function BlogPostContent({ post }: { post: any }) {
-  const shareUrl = "";
-  const contentRef = useRef<HTMLDivElement>(null);
+type BlogPostProps = {
+  post: {
+    slug: string;
+    frontMatter: {
+      title: string;
+      date: string;
+      excerpt: string;
+      coverImage: string | null;
+      tags: string[];
+      author: string;
+      readingTime: string;
+    };
+    content: string;
+  };
+};
 
-  // Initialize Prism.js after content is rendered
+const CustomComponents = {
+  callout: ({ type, children }: { type: string; children: React.ReactNode }) => (
+    <div className={`my-4 p-4 rounded-lg border-l-4 ${
+      type === 'warning' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-400' : 
+      type === 'danger' ? 'bg-red-50 dark:bg-red-900/20 border-red-400' : 
+      'bg-blue-50 dark:bg-blue-900/20 border-blue-400'
+    }`}>
+      {children}
+    </div>
+  ),
+  alert: ({ type, children }: { type: string; children: React.ReactNode }) => (
+    <div className={`my-4 p-4 rounded-lg border ${
+      type === 'error' ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800' : 
+      'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+    }`}>
+      {children}
+    </div>
+  ),
+  feature: ({ type, children }: { type: string; children: React.ReactNode }) => (
+    <div className="my-6 p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl border border-gray-200 dark:border-gray-700">
+      {children}
+    </div>
+  ),
+  codeplayground: ({ lang, children }: { lang: string; children: React.ReactNode }) => (
+    <div className="my-6">
+      <div className="text-xs font-mono text-gray-500 mb-1">Playground: {lang}</div>
+      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        {children}
+      </div>
+    </div>
+  )
+};
+
+export default function BlogPostContent({ post }: BlogPostProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+
   useEffect(() => {
-    // Check if Prism is available globally
-    if (typeof window !== 'undefined' && window.Prism) {
-      window.Prism.highlightAll();
+    if (contentRef.current) {
+      const processComponents = () => {
+        processComponentType('callout');
+        processComponentType('alert');
+        processComponentType('feature');
+        processComponentType('codeplayground');
+        processCodeBlocks();
+      };
+
+      const processComponentType = (componentType: string) => {
+        const elements = contentRef.current?.querySelectorAll(
+          `[data-component="${componentType}"]`
+        );
+        
+        elements?.forEach((el) => {
+          const props: Record<string, string> = {};
+          Array.from(el.attributes).forEach((attr) => {
+            if (attr.name.startsWith('data-')) {
+              const propName = attr.name.replace('data-', '');
+              props[propName] = attr.value;
+            }
+          });
+
+          const content = el.innerHTML;
+          const Component = CustomComponents[componentType as keyof typeof CustomComponents];
+          
+          if (Component) {
+            const wrapper = document.createElement('div');
+            wrapper.className = `custom-component-${componentType}`;
+            
+            const root = document.createElement('div');
+            wrapper.appendChild(root);
+            
+            import('react-dom/client').then(({ createRoot }) => {
+              const rootInstance = createRoot(root);
+              rootInstance.render(
+                <Component type={''} lang={''} {...props}>
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                </Component>
+              );
+            });
+
+            el.replaceWith(wrapper);
+          }
+        });
+      };
+
+      const processCodeBlocks = () => {
+        const codeBlocks = contentRef.current?.querySelectorAll('pre code');
+        
+        codeBlocks?.forEach((block) => {
+          const pre = block.parentElement;
+          if (!pre) return;
+
+          const languageMatch = block.className.match(/language-(\w+)/);
+          const language = languageMatch ? languageMatch[1] : 'text';
+
+          const container = document.createElement('div');
+          container.className = 'relative my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700';
+
+          const header = document.createElement('div');
+          header.className = 'flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800';
+          
+          const languageSpan = document.createElement('span');
+          languageSpan.className = 'text-xs font-mono text-muted-foreground';
+          languageSpan.textContent = language;
+          
+          const copyButton = document.createElement('button');
+          copyButton.className = 'p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-muted-foreground hover:text-foreground transition-colors';
+          
+          const icon = document.createElement('span');
+          icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
+          copyButton.appendChild(icon);
+
+          copyButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(block.textContent || '');
+            icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            setTimeout(() => {
+              icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
+            }, 2000);
+          });
+
+          header.appendChild(languageSpan);
+          header.appendChild(copyButton);
+
+          const newPre = document.createElement('div');
+          newPre.className = 'code-content bg-white dark:bg-gray-900';
+
+          container.appendChild(header);
+          container.appendChild(newPre);
+          pre.replaceWith(container);
+
+          import('react-dom/client').then(({ createRoot }) => {
+            const root = createRoot(newPre);
+            root.render(
+              <SyntaxHighlighter
+                language={language}
+                style={tomorrow}
+                customStyle={{
+                  margin: 0,
+                  padding: '1rem',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.5',
+                  background: 'transparent'
+                }}
+                PreTag="div"
+              >
+                {block.textContent || ''}
+              </SyntaxHighlighter>
+            );
+          });
+        });
+      };
+
+      processComponents();
     }
   }, [post.content]);
 
@@ -62,47 +223,22 @@ export default function BlogPostContent({ post }: { post: any }) {
       className="min-h-screen pt-8 pb-10 bg-background"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back to Blog with animation */}
-        <motion.div variants={itemVariants} >
-          <Link 
-            href="/blog" 
-            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:-translate-x-1 transition-transform" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
+        <motion.div variants={itemVariants}>
+          <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Back to all posts
           </Link>
         </motion.div>
 
-        {/* Blog Post Content */}
-        <motion.article 
-          variants={containerVariants}
-          className="overflow-hidden"
-        >
-          {/* Header Section with animations */}
-          <motion.header 
-            variants={containerVariants}
-            className="mb-8"
-          >
-            <motion.h1 
-              variants={itemVariants}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground leading-tight"
-            >
+        <motion.article variants={containerVariants} className="overflow-hidden">
+          <motion.header variants={containerVariants} className="mb-8">
+            <motion.h1 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground leading-tight">
               {post.frontMatter.title}
             </motion.h1>
 
-            {/* Meta Information */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-wrap items-center text-muted-foreground mb-4 text-xs sm:text-sm"
-            >
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center text-muted-foreground mb-4 text-xs sm:text-sm">
               <time dateTime={post.frontMatter.date} className="mr-2">
                 {new Date(post.frontMatter.date).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -116,13 +252,9 @@ export default function BlogPostContent({ post }: { post: any }) {
               <span className="font-medium">{post.frontMatter.author}</span>
             </motion.div>
 
-            {/* Tags with staggered animation */}
-            {post.frontMatter.tags && post.frontMatter.tags.length > 0 && (
-              <motion.div 
-                variants={containerVariants}
-                className="flex flex-wrap gap-2 mb-4"
-              >
-                {post.frontMatter.tags.map((tag: string, index: number) => (
+            {post.frontMatter.tags?.length > 0 && (
+              <motion.div variants={containerVariants} className="flex flex-wrap gap-2 mb-4">
+                {post.frontMatter.tags.map((tag, index) => (
                   <motion.span 
                     key={tag}
                     variants={itemVariants}
@@ -135,12 +267,8 @@ export default function BlogPostContent({ post }: { post: any }) {
               </motion.div>
             )}
 
-            {/* Cover Image with animation */}
             {post.frontMatter.coverImage && (
-              <motion.div 
-                variants={fadeIn}
-                className="relative w-full h-48 sm:h-56 md:h-72 lg:h-80 rounded-lg overflow-hidden mb-6 shadow-md"
-              >
+              <motion.div variants={fadeIn} className="relative w-full h-48 sm:h-56 md:h-72 lg:h-80 rounded-lg overflow-hidden mb-6 shadow-md">
                 <Image 
                   src={post.frontMatter.coverImage} 
                   alt={post.frontMatter.title}
@@ -153,64 +281,22 @@ export default function BlogPostContent({ post }: { post: any }) {
             )}
           </motion.header>
 
-          {/* Blog Content with animation - This is where the markdown content is rendered */}
           <motion.div 
             ref={contentRef}
             variants={slideUp}
-            className="prose prose-sm sm:prose lg:prose-lg max-w-none
-                      prose-headings:scroll-mt-16 prose-headings:font-bold prose-headings:leading-tight
-                      prose-h1:text-2xl sm:prose-h1:text-3xl md:prose-h1:text-4xl prose-h1:mb-6 prose-h1:border-b prose-h1:pb-2 prose-h1:border-border
-                      prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
-                      prose-h3:text-lg sm:prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
-                      prose-headings:text-foreground 
-                      prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:my-4
-                      prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                      prose-img:rounded-lg prose-img:shadow-md prose-img:mx-auto prose-img:my-6
-                      prose-blockquote:border-l-4 prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 
-                      prose-blockquote:p-4 prose-blockquote:rounded-lg prose-blockquote:my-6
-                      prose-code:text-muted-foreground prose-code:bg-muted prose-code:rounded prose-code:px-1 prose-code:py-0.5
-                      prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:shadow-sm prose-pre:rounded-lg prose-pre:my-6
-                      prose-pre:overflow-x-auto prose-pre:p-4
-                      prose-ul:list-disc prose-ol:list-decimal prose-ul:my-4 prose-ol:my-4 prose-ul:pl-6 prose-ol:pl-6
-                      prose-li:marker:text-primary prose-li:my-2
-                      prose-table:border prose-table:border-border prose-table:my-6 prose-table:w-full prose-table:overflow-x-auto
-                      prose-th:bg-muted prose-th:p-3 prose-th:border prose-th:border-border prose-th:text-left
-                      prose-td:p-3 prose-td:border prose-td:border-border
-                      dark:prose-invert"
+            className="prose prose-sm sm:prose lg:prose-lg max-w-none dark:prose-invert"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
-          {/* Footer Section with animations */}
-          <motion.div 
-            variants={fadeIn}
-            className="mt-8 pt-4 border-t border-border"
-          >
+
+          <motion.div variants={fadeIn} className="mt-8 pt-4 border-t border-border">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              {/* Back to Blog */}
               <motion.div whileHover={{ scale: 0.95 }}>
-                <Link 
-                  href="/blog" 
-                  className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm"
-                >
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
+                <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
                   Back to all posts
                 </Link>
-              </motion.div>
-
-              {/* Share Button with animation */}
-              <motion.div whileHover={{ scale: 0.95 }}>
-                <ShareButton 
-                  title={post.frontMatter.title} 
-                  text={post.frontMatter.excerpt || "Check out this article!"} 
-                  url={shareUrl} 
-                />
               </motion.div>
             </div>
           </motion.div>
