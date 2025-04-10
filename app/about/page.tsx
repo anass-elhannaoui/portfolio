@@ -145,7 +145,7 @@ export default function About() {
             <div className="text-center md:text-left">
               <h1 className="text-4xl font-bold mb-4">About Me</h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I am a Fourth-year Data Science & Cloud Computing Engineering student passionate about AI, Machine Learning, and the ever-evolving world of technology. My curiosity drives me to explore diverse domains, from data-driven insights to scalable cloud systems and DevOps practices. While my academic foundation is in Data Science and Cloud Computing, I'm actively expanding my skills in DevOps, Software Development, and building secure, intelligent systems.
+                I am a second-year Data Science & Cloud Computing Engineering student passionate about AI, Machine Learning, and the ever-evolving world of technology. My curiosity drives me to explore diverse domains, from data-driven insights to scalable cloud systems and DevOps practices. While my academic foundation is in Data Science and Cloud Computing, I'm actively expanding my skills in DevOps, Software Development, and building secure, intelligent systems.
               </p>
             </div>
           </motion.div>
