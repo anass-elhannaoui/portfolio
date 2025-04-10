@@ -71,14 +71,14 @@ export default function Home() {
             <motion.div variants={itemVariants} className="mb-8">
               <div className="text-xl sm:text-2xl text-primary font-medium h-10">
                 <TypeAnimation
-                  sequence={[
-                    "Software Developer | Cloud & AI Enthusiast",
+                  sequence={['Full-Stack Developer',
                     2000,
-                    "Building Scalable and Intelligent Systems",
-                    2000,
-                    "Transforming Ideas into Solutions",
-                    2000,
-                  ]}
+                     'Cloud Enthusiast',
+                     2000,
+                      'AI Builder',
+                      2000
+                    ]
+}
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
@@ -91,9 +91,8 @@ export default function Home() {
               variants={itemVariants}
               className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl"
             >
-              Computer science student at ENSAO-UMP passionate about building scalable systems and intelligent solutions. 
-              I bridge the gap between theoretical knowledge and practical implementation through hands-on projects in 
-              cloud computing, machine learning, and full-stack development.
+              Computer science student passionate about building scalable and intelligent systems. I turn complex challenges into real-world solutions using AI, cloud, and full-stack tech.
+
             </motion.p>
 
             <motion.div
