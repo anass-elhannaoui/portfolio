@@ -1,4 +1,3 @@
-//components\BlogPostContent\page.tsx
 'use client';
 
 import { motion } from 'framer-motion';
@@ -7,8 +6,9 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { Copy, Check } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import ShareButton from '@/components/sharePostButton/ShareButton';
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -95,6 +95,79 @@ const CustomComponents = {
 export default function BlogPostContent({ post }: BlogPostProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const { theme } = useTheme();
+
+  const processCodeBlocks = (currentTheme: 'light' | 'dark') => {
+    const codeBlocks = contentRef.current?.querySelectorAll('pre code');
+
+    codeBlocks?.forEach((block) => {
+      const pre = block.parentElement;
+      if (!pre) return;
+
+      const languageMatch = block.className.match(/language-(\w+)/);
+      const language = languageMatch ? languageMatch[1] : 'text';
+
+      const container = document.createElement('div');
+      container.className = 'relative my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700';
+
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800';
+
+      const languageSpan = document.createElement('span');
+      languageSpan.className = 'text-xs font-mono text-muted-foreground';
+      languageSpan.textContent = language;
+
+      const copyButton = document.createElement('button');
+      copyButton.className = 'p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-muted-foreground hover:text-foreground transition-colors';
+
+      const icon = document.createElement('span');
+      icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
+      copyButton.appendChild(icon);
+
+      copyButton.addEventListener('click', () => {
+        navigator.clipboard.writeText(block.textContent || '');
+        icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+        setTimeout(() => {
+          icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
+        }, 2000);
+      });
+
+      header.appendChild(languageSpan);
+      header.appendChild(copyButton);
+
+      const newPre = document.createElement('div');
+      newPre.className = 'code-content';
+
+      container.appendChild(header);
+      container.appendChild(newPre);
+      pre.replaceWith(container);
+
+      import('react-dom/client').then(({ createRoot }) => {
+        const root = createRoot(newPre);
+        root.render(
+          <SyntaxHighlighter
+            language={language}
+            style={currentTheme === 'dark' ? atomDark : tomorrow}
+            customStyle={{
+              margin: 0,
+              padding: '1rem',
+              fontSize: '0.875rem',
+              lineHeight: '1.5',
+              background: currentTheme === 'dark' ? '#111827' : '#f5f5f5',
+            }}
+            PreTag="div"
+            codeTagProps={{
+              style: {
+                color: currentTheme === 'dark' ? '#e5e7eb' : '#374151',
+              },
+            }}
+          >
+            {block.textContent || ''}
+          </SyntaxHighlighter>
+        );
+      });
+    });
+  };
 
   useEffect(() => {
     if (contentRef.current) {
@@ -103,7 +176,7 @@ export default function BlogPostContent({ post }: BlogPostProps) {
         processComponentType('alert');
         processComponentType('feature');
         processComponentType('codeplayground');
-        processCodeBlocks();
+        processCodeBlocks(theme === 'dark' ? 'dark' : 'light');
       };
 
       const processComponentType = (componentType: string) => {
@@ -144,76 +217,9 @@ export default function BlogPostContent({ post }: BlogPostProps) {
         });
       };
 
-      const processCodeBlocks = () => {
-        const codeBlocks = contentRef.current?.querySelectorAll('pre code');
-        
-        codeBlocks?.forEach((block) => {
-          const pre = block.parentElement;
-          if (!pre) return;
-
-          const languageMatch = block.className.match(/language-(\w+)/);
-          const language = languageMatch ? languageMatch[1] : 'text';
-
-          const container = document.createElement('div');
-          container.className = 'relative my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700';
-
-          const header = document.createElement('div');
-          header.className = 'flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800';
-          
-          const languageSpan = document.createElement('span');
-          languageSpan.className = 'text-xs font-mono text-muted-foreground';
-          languageSpan.textContent = language;
-          
-          const copyButton = document.createElement('button');
-          copyButton.className = 'p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-muted-foreground hover:text-foreground transition-colors';
-          
-          const icon = document.createElement('span');
-          icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
-          copyButton.appendChild(icon);
-
-          copyButton.addEventListener('click', () => {
-            navigator.clipboard.writeText(block.textContent || '');
-            icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
-            setTimeout(() => {
-              icon.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>`;
-            }, 2000);
-          });
-
-          header.appendChild(languageSpan);
-          header.appendChild(copyButton);
-
-          const newPre = document.createElement('div');
-          newPre.className = 'code-content bg-white dark:bg-gray-900';
-
-          container.appendChild(header);
-          container.appendChild(newPre);
-          pre.replaceWith(container);
-
-          import('react-dom/client').then(({ createRoot }) => {
-            const root = createRoot(newPre);
-            root.render(
-              <SyntaxHighlighter
-                language={language}
-                style={tomorrow}
-                customStyle={{
-                  margin: 0,
-                  padding: '1rem',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.5',
-                  background: 'transparent'
-                }}
-                PreTag="div"
-              >
-                {block.textContent || ''}
-              </SyntaxHighlighter>
-            );
-          });
-        });
-      };
-
       processComponents();
     }
-  }, [post.content]);
+  }, [post.content, theme]);
 
   return (
     <motion.div
@@ -288,10 +294,8 @@ export default function BlogPostContent({ post }: BlogPostProps) {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          {/*the footer section in BlogPostContent component */}
           <motion.div variants={fadeIn} className="mt-8 pt-4 border-t border-border">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              {/* Back button - left side */}
               <motion.div whileHover={{ scale: 0.95 }} className="flex-1 sm:flex-none">
                 <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors group text-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -301,7 +305,6 @@ export default function BlogPostContent({ post }: BlogPostProps) {
                 </Link>
               </motion.div>
 
-              {/* Share button - right side */}
               <motion.div whileHover={{ scale: 0.95 }} className="flex-1 sm:flex-none text-right">
                 <ShareButton 
                   title={post.frontMatter.title}
@@ -311,7 +314,6 @@ export default function BlogPostContent({ post }: BlogPostProps) {
               </motion.div>
             </div>
           </motion.div>
-
         </motion.article>
       </div>
     </motion.div>
