@@ -159,9 +159,13 @@ export default function Home() {
 
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto"
           >
-            <motion.div variants={cardVariants} whileHover="hover" className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full">
+            <motion.div 
+              variants={cardVariants} 
+              whileHover="hover" 
+              className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full w-full max-w-sm"
+            >
               <div className="p-3 bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mb-6">
                 <Database className="h-7 w-7 text-primary" />
               </div>
@@ -171,7 +175,11 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div variants={cardVariants} whileHover="hover" className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full">
+            <motion.div 
+              variants={cardVariants} 
+              whileHover="hover" 
+              className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full w-full max-w-sm"
+            >
               <div className="p-3 bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mb-6">
                 <Cloud className="h-7 w-7 text-primary" />
               </div>
@@ -181,17 +189,11 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div variants={cardVariants} whileHover="hover" className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full">
-              <div className="p-3 bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                <Terminal className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Software Engineering</h3>
-              <p className="text-muted-foreground">
-                Gaining experience in building reliable systems using best practices and collaborative tools.
-              </p>
-            </motion.div>
-
-            <motion.div variants={cardVariants} whileHover="hover" className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full">
+            <motion.div 
+              variants={cardVariants} 
+              whileHover="hover" 
+              className="flex flex-col p-8 border border-border rounded-xl bg-card shadow-sm hover:shadow-lg transition-all h-full w-full max-w-sm"
+            >
               <div className="p-3 bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mb-6">
                 <Code className="h-7 w-7 text-primary" />
               </div>
@@ -202,7 +204,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </motion.div>
-
         {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

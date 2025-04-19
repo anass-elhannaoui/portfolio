@@ -94,7 +94,7 @@ const CustomComponents = {
 
 export default function BlogPostContent({ post }: BlogPostProps) {
   const contentRef = useRef<HTMLDivElement>(null);
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/blog/${post.slug}` : '';
   const { theme } = useTheme();
 
   const processCodeBlocks = (currentTheme: 'light' | 'dark') => {
