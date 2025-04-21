@@ -68,13 +68,18 @@ export default function Home() {
 
             <motion.div variants={itemVariants} className="mb-8">
               <div className="text-xl sm:text-2xl text-primary font-medium h-10">
-                <TypeAnimation
-                  sequence={['Full-Stack Developer', 2000, 'Tech Explorer', 2000, 'Problem Solver', 2000]}
-                  wrapper="span"
-                  speed={50}
-                  repeat={Infinity}
-                  className="font-semibold"
-                />
+              <TypeAnimation
+                sequence={[
+                  'Full-Stack Developer', 2000,
+                  'Cloud & DevOps Explorer', 2000,
+                  'Problem Solver', 2000
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                className="font-semibold"
+              />
+
               </div>
             </motion.div>
 
