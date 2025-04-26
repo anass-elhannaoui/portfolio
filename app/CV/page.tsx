@@ -12,7 +12,7 @@ export default function CVViewer() {
 
   const pdfFile = {
     url: "/docs/AnassElHannaoui-CV.pdf",
-    name: "Anass_El_Hannaoui_CV.pdf"
+    name: "AnassElHannaoui-CV.pdf"
   };
 
   useEffect(() => {
