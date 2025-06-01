@@ -1,5 +1,3 @@
-// app/blog/page.tsx
-import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -16,12 +14,14 @@ type Post = {
     readingTime: string;
   };
 };
+
 function calculateReadingTime(content: string): string {
   const wordsPerMinute = 185;
   const wordCount = content.split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / wordsPerMinute);
   return `${readingTime} min read`;
 }
+
 async function getPosts(): Promise<Post[]> {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
@@ -53,8 +53,9 @@ export default async function BlogPage() {
   const posts = await getPosts();
   
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background">
+    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">Blog</h1>
         <PostsList posts={posts} />
       </div>
     </div>

@@ -180,15 +180,9 @@ export default function Projects() {
       }
     };
 
-    // Check hash on initial load
     handleHashChange();
-
-    // Set up hash change listener
     window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const filteredProjects = filter === "All" 
@@ -196,45 +190,46 @@ export default function Projects() {
     : projects.filter(project => project.category.includes(filter));
 
   const typeColors = {
-    Professional: "bg-blue-100 text-blue-800",
-    Academic: "bg-green-100 text-green-800",
-    Personal: "bg-purple-100 text-purple-800"
+    Professional: "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200",
+    Academic: "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200",
+    Personal: "bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200"
   };
 
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background">
+    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ durtion: 0.2}}
+          transition={{ duration: 0.3 }}
         >
-          <h1 className="text-4xl font-bold mb-8">Featured Projects</h1>
+          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">Featured Projects</h1>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-        {["All", "Machine Learning", "Web Development"].map((cat, index) => (
-          <motion.div
-            key={cat}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.2,
-              delay: index * 0.1 // Staggered animation
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button
-              variant={filter === cat ? "default" : "outline"}
-              onClick={() => setFilter(cat)}
-              className="transition-all duration-300"
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {["All", "Machine Learning", "Web Development"].map((cat, index) => (
+            <motion.div
+              key={cat}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
             >
-              {cat}
-            </Button>
-          </motion.div>
-        ))}
-      </div>
+              <Button
+                variant={filter === cat ? "default" : "outline"}
+                onClick={() => setFilter(cat)}
+                className={`rounded-full px-6 py-2 font-semibold transition-all duration-300 ${
+                  filter === cat
+                    ? "bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md"
+                    : "bg-background dark:bg-black border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 text-foreground dark:text-gray-300"
+                }`}
+              >
+                {cat}
+              </Button>
+            </motion.div>
+          ))}
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project, index) => (
@@ -242,8 +237,9 @@ export default function Projects() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-             
-              className="bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              className="rounded-xl shadow-lg overflow-hidden border border-border dark:border-gray-600 transition-all duration-300 bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 cursor-pointer"
+              whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
               onClick={() => openProjectDetails(project)}
             >
               <div className="relative">
@@ -258,16 +254,16 @@ export default function Projects() {
                   {project.type}
                 </span>
               </div>
-              <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
-                <p className="text-muted-foreground text-sm mb-4">
+              <div className="p-6">
+                <h2 className="text-xl font-semibold mb-2 text-foreground dark:text-white">{project.title}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 text-sm mb-4">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 4).map((tech, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-1 bg-accent p-1 px-2 rounded-full text-xs"
+                      className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300"
                     >
                       <Image
                         src={tech.icon}
@@ -280,7 +276,7 @@ export default function Projects() {
                     </div>
                   ))}
                   {project.technologies.length > 4 && (
-                    <div className="flex items-center gap-1 bg-accent p-1 px-2 rounded-full text-xs">
+                    <div className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300">
                       +{project.technologies.length - 4}
                     </div>
                   )}
@@ -299,28 +295,23 @@ export default function Projects() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              
-              className="bg-background rounded-2xl shadow-lg max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto"
+              className="bg-background dark:bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-border dark:border-gray-600 bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
+                className="absolute top-4 right-4 text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white"
                 onClick={closeProjectDetails}
               >
-                <X />
+                <X className="h-6 w-6" />
               </button>
-              <h2 className="text-2xl font-bold mb-2">
-                {selectedProject.title}
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                {selectedProject.period}
-              </p>
-              <p className="mb-4">{selectedProject.description}</p>
+              <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">{selectedProject.title}</h2>
+              <p className="text-muted-foreground dark:text-gray-400 mb-4">{selectedProject.period}</p>
+              <p className="mb-4 text-foreground dark:text-gray-300">{selectedProject.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedProject.technologies.map((tech, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-1 bg-accent p-1 px-2 rounded-full text-xs"
+                    className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300"
                   >
                     <Image
                       src={tech.icon}
@@ -333,27 +324,31 @@ export default function Projects() {
                   </div>
                 ))}
               </div>
-              <h3 className="font-semibold mb-2">Key Responsibilities:</h3>
-              <ul className="list-disc pl-5 mb-6 space-y-1">
+              <h3 className="font-semibold mb-2 text-foreground dark:text-white">Key Responsibilities:</h3>
+              <ul className="list-disc pl-5 mb-6 space-y-1 text-foreground dark:text-gray-300">
                 {selectedProject.responsibilities.map((task, i) => (
                   <li key={i}>{task}</li>
                 ))}
               </ul>
               <div className="flex gap-4">
                 {selectedProject.github && selectedProject.github !== "#" && (
-                  <Link href={selectedProject.github} target="_blank">
-                    <Button variant="outline">
-                      <Github className="w-4 h-4 mr-2" /> GitHub
-                    </Button>
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                    <Link href={selectedProject.github} target="_blank">
+                      <Button variant="outline" className="rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 text-foreground dark:text-gray-300">
+                        <Github className="w-4 h-4 mr-2" /> GitHub
+                      </Button>
+                    </Link>
+                  </motion.div>
                 )}
                 {selectedProject.demo && selectedProject.demo !== "#" && (
-                  <Link href={selectedProject.demo} target="_blank">
-                    <Button>
-                      <ExternalLink className="w-4 h-4 mr-2" /> 
-                      {selectedProject.title === "RipAns – RMI Chat Application" ? "App Website" : "Live Demo"}
-                    </Button>
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                    <Link href={selectedProject.demo} target="_blank">
+                      <Button className="rounded-full px-6 py-2 font-semibold bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md transition-all duration-300">
+                        <ExternalLink className="w-4 h-4 mr-2" /> 
+                        {selectedProject.title === "RipAns – RMI Chat Application" ? "App Website" : "Live Demo"}
+                      </Button>
+                    </Link>
+                  </motion.div>
                 )}
               </div>
             </motion.div>

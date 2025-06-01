@@ -68,19 +68,19 @@ export default function About() {
 
   const featuredProjects: ProjectItem[] = [
     {
-      id: "energy-management", // Must match ID in Projects page
+      id: "energy-management",
       title: "Energy Consumption Management Platform (SIME)",
       description: "Full-stack platform for monitoring factory energy consumption with real-time analytics using Spring Boot and Angular.",
       period: "August 2024 – October 2024",
     },
     {
-      id: "road-infrastructure", // Must match ID in Projects page
+      id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management",
       description: "Computer vision system for pothole detection using YOLOv8 and Vision Transformers with real-time mapping.",
       period: "March 2025 – June 2025",
     },
     {
-      id: "chat-application", // Must match ID in Projects page
+      id: "chat-application",
       title: "RipAns – RMI Chat Application",
       description: "Real-time chat application built with Java RMI for secure communication between multiple clients.",
       period: "February 2025 – March 2025",
@@ -103,7 +103,6 @@ export default function About() {
   const isExpanded = (section: keyof ExpandedSections, index: number) => 
     expandedSections[section].includes(index);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -120,19 +119,26 @@ export default function About() {
   };
 
   return (
-    <div className="min-h-screen pt-14 bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="min-h-screen pt-14 pb-10 bg-background dark:bg-black"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Section */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
           className="mb-16"
-          transition={{ duration: 0.3 }}
         >
-          <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
+          <motion.div 
+            variants={itemVariants} 
+            className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12"
+          >
             <div className="shrink-0">
-              <div className="relative w-32 h-32 overflow-hidden rounded-full border-4 border-background shadow-lg">
+              <div className="relative w-32 h-32 overflow-hidden rounded-full border-4 border-background dark:border-gray-900 shadow-lg">
                 <Image
                   src="/images/Profile.jpg"
                   alt="Profile"
@@ -143,8 +149,8 @@ export default function About() {
               </div>
             </div>
             <div className="text-center md:text-left">
-              <h1 className="text-4xl font-bold mb-4">About Me</h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <h1 className="text-4xl font-bold mb-4 text-foreground dark:text-white">About Me</h1>
+              <p className="text-lg text-muted-foreground dark:text-gray-400 leading-relaxed">
                 I am a second-year Data Science & Cloud Computing Engineering student passionate about AI, Machine Learning, and the ever-evolving world of technology. My curiosity drives me to explore diverse domains, from data-driven insights to scalable cloud systems and DevOps practices. While my academic foundation is in Data Science and Cloud Computing, I'm actively expanding my skills in DevOps, Software Development, and building secure, intelligent systems.
               </p>
             </div>
@@ -158,30 +164,48 @@ export default function About() {
           variants={containerVariants}
           className="mb-16"
         >
-          <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
-            <FileText className="mr-2 text-primary" />
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-2xl font-semibold mb-6 flex items-center border-b pb-2 text-foreground dark:text-white"
+          >
+            <FileText className="mr-2 text-primary dark:text-gray-400" />
             Curriculum Vitae
           </motion.h2>
           
           <motion.div 
             variants={itemVariants}
-            className="flex flex-col sm:flex-row justify-center items-center gap-4 p-8 border rounded-lg bg-card shadow-sm"
+            className="flex flex-col sm:flex-row justify-between items-center gap-4 p-8 border rounded-xl bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg"
+            whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
           >
             <div className="text-center sm:text-left mb-4 sm:mb-0">
-              <h3 className="text-xl font-medium mb-2">My Resume</h3>
-              <p className="text-muted-foreground">You can view or download my CV to learn more about my professional background and skills</p>
+              <h3 className="text-xl font-medium mb-2 text-foreground dark:text-white">My Resume</h3>
+              <p className="text-muted-foreground dark:text-gray-400">You can view or download my CV to learn more about my professional background and skills</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button asChild variant="outline" size="lg" className="flex items-center gap-2">
-                <Link href="/CV" >
-                  <Eye className="h-4 w-4" /> View CV
-                </Link>
-              </Button>
-              <Button asChild variant="default" size="lg" className="flex items-center gap-2">
-                <a href="/docs/AnassElHannaoui-CV.pdf" download="AnassElHannaoui-CV.pdf">
-                  <Download className="h-4 w-4" /> Download CV
-                </a>
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg" 
+                  className="rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 transition-all duration-300 flex items-center gap-2 text-foreground dark:text-gray-300"
+                >
+                  <Link href="/CV">
+                    <Eye className="h-4 w-4" /> View CV
+                  </Link>
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Button 
+                  asChild 
+                  variant="default" 
+                  size="lg" 
+                  className="rounded-full px-6 py-2 font-semibold bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md transition-all duration-300 flex items-center gap-2"
+                >
+                  <a href="/docs/AnassElHannaoui-CV.pdf" download="AnassElHannaoui-CV.pdf">
+                    <Download className="h-4 w-4" /> Download CV
+                  </a>
+                </Button>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
@@ -192,10 +216,12 @@ export default function About() {
           animate="visible"
           variants={containerVariants}
           className="mb-16"
-          
         >
-          <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
-            <GraduationCap className="mr-2 text-primary" />
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-2xl font-semibold mb-6 flex items-center border-b pb-2 text-foreground dark:text-white"
+          >
+            <GraduationCap className="mr-2 text-primary dark:text-gray-400" />
             Education
           </motion.h2>
           
@@ -204,29 +230,30 @@ export default function About() {
               <motion.div 
                 key={index} 
                 variants={itemVariants}
-                className="border border-border rounded-lg overflow-hidden bg-card shadow-sm"
+                className="border rounded-xl overflow-hidden bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg"
+                whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
               >
                 <button
                   onClick={() => toggleExpanded('education', index)}
-                  className="w-full p-5 flex items-center justify-between hover:bg-accent/10 transition-colors duration-200"
+                  className="w-full p-5 flex items-center justify-between hover:bg-primary/10 dark:hover:bg-gray-800 transition-colors duration-300"
                 >
                   <div className="flex items-center text-left">
                     <div className="mr-4">
-                      <div className="p-2 bg-primary/5 rounded-full">
-                        <GraduationCap className="h-5 w-5 text-primary" />
+                      <div className="p-2 bg-primary/5 dark:bg-gray-800 rounded-full">
+                        <GraduationCap className="h-5 w-5 text-primary dark:text-gray-400" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">{edu.degree}</h3>
-                      <p className="text-muted-foreground">{edu.school}</p>
-                      <div className="flex items-center mt-1 text-sm text-muted-foreground">
+                      <h3 className="font-medium text-lg text-foreground dark:text-white">{edu.degree}</h3>
+                      <p className="text-muted-foreground dark:text-gray-400">{edu.school}</p>
+                      <div className="flex items-center mt-1 text-sm text-muted-foreground dark:text-gray-400">
                         <Calendar className="h-3 w-3 mr-1" />
                         {edu.period}
                       </div>
                     </div>
                   </div>
                   <ChevronDown 
-                    className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${
+                    className={`h-5 w-5 text-muted-foreground dark:text-gray-400 transition-transform duration-300 ${
                       isExpanded('education', index) ? 'rotate-180' : ''
                     }`}
                   />
@@ -251,7 +278,7 @@ export default function About() {
                       />
                     </div>
                     <div className="mt-4">
-                      <p className="text-muted-foreground">{edu.description}</p>
+                      <p className="text-muted-foreground dark:text-gray-400">{edu.description}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -267,19 +294,26 @@ export default function About() {
           variants={containerVariants}
           className="mb-16"
         >
-          <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
-            <Cpu className="mr-2 text-primary" />
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-2xl font-semibold mb-6 flex items-center border-b pb-2 text-foreground dark:text-white"
+          >
+            <Cpu className="mr-2 text-primary dark:text-gray-400" />
             Key Technologies
           </motion.h2>
           
-          <motion.div variants={containerVariants} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6">
+          <motion.div 
+            variants={containerVariants} 
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6"
+          >
             {featuredSkills.map((skill, index) => (
               <motion.div 
                 key={skill.name}
                 variants={itemVariants}
-                className="flex items-center gap-3 p-3 border rounded-lg bg-accent/5 hover:bg-accent/10 transition-colors"
+                className="flex items-center gap-3 p-3 border rounded-xl bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg hover:bg-primary/10 dark:hover:bg-gray-800 transition-colors duration-300"
+                whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
               >
-                <div className="p-1.5 bg-background rounded-md">
+                <div className="p-1.5 bg-background dark:bg-black rounded-md">
                   <Image 
                     src={skill.icon} 
                     width={22} 
@@ -287,16 +321,23 @@ export default function About() {
                     alt={skill.name}
                   />
                 </div>
-                <span className="font-medium">{skill.name}</span>
+                <span className="font-medium text-foreground dark:text-white">{skill.name}</span>
               </motion.div>
             ))}
           </motion.div>
           
-          <Button asChild variant="outline" size="sm" className="text-primary">
-            <Link href="/skills">
-              View all skills <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </Button>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <Button 
+              asChild 
+              variant="outline" 
+              size="sm" 
+              className="rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 transition-all duration-300 flex items-center gap-2 text-foreground dark:text-gray-300"
+            >
+              <Link href="/skills">
+                View all skills <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Featured Projects Section */}
@@ -306,48 +347,67 @@ export default function About() {
           variants={containerVariants}
           className="mb-16"
         >
-          <motion.h2 variants={itemVariants} className="text-2xl font-semibold mb-6 flex items-center border-b pb-2">
-            <Code className="mr-2 text-primary" />
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-2xl font-semibold mb-6 flex items-center border-b pb-2 text-foreground dark:text-white"
+          >
+            <Code className="mr-2 text-primary dark:text-gray-400" />
             Featured Work
           </motion.h2>
           
-          <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <motion.div 
+            variants={containerVariants} 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
+          >
             {featuredProjects.map((project, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="border rounded-lg p-6 bg-card shadow-sm hover:shadow-md transition-shadow h-full flex flex-col"
+                className="border rounded-xl p-6 bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col"
+                whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
               >
                 <div className="flex-grow">
-                  <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-3">{project.description}</p>
-                  <div className="flex items-center text-sm text-muted-foreground mb-4">
+                  <h3 className="text-xl font-medium mb-2 text-foreground dark:text-white">{project.title}</h3>
+                  <p className="text-muted-foreground dark:text-gray-400 mb-3">{project.description}</p>
+                  <div className="flex items-center text-sm text-muted-foreground dark:text-gray-400 mb-4">
                     <Calendar className="h-3 w-3 mr-1" />
                     {project.period}
                   </div>
                 </div>
-                <Button asChild variant="outline" size="sm" className="mt-auto w-full">
-                  <Link 
-                    href={`/projects#${project.id}`} 
-                    className="flex items-center justify-center"
-                    scroll={false} // Prevent default scroll behavior
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-auto w-full rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 transition-all duration-300 flex items-center justify-center text-foreground dark:text-gray-300"
                   >
-                    View Project <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
+                    <Link 
+                      href={`/projects#${project.id}`} 
+                      scroll={false}
+                    >
+                      View Project <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>
           
           <div className="text-center">
-            <Button asChild variant="default">
-              <Link href="/projects" className="flex items-center">
-                View All Projects <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+              <Button 
+                asChild 
+                variant="default"
+                className="rounded-full px-6 py-2 font-semibold bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md transition-all duration-300 flex items-center"
+              >
+                <Link href="/projects">
+                  View All Projects <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }

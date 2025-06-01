@@ -1,56 +1,62 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google';
+import { Suspense } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   icons: {
     icon: '/icons/logo.svg',
-    
+    apple: '/icons/apple-touch-icon.png', // Assumes file exists in /public
+    shortcut: '/icons/favicon.ico', // Assumes file exists in /public
   },
   title: {
-    default: 'Anass El Hannaoui | Data Science & Cloud student',
-    template: '%s | Anass El Hannaoui'
+    default: 'Anass El Hannaoui | Cloud & AI Enthusiast',
+    template: '%s | Anass El Hannaoui',
   },
-  description: 'Cloud Solutions Architect and AI Engineer specializing in scalable systems, machine learning implementations, and DevOps automation.',
+  description: 'Computer science student passionate about Cloud, DevOps, and AI. Building skills through real projects in machine learning, scalable systems, and full-stack development.',
   keywords: [
-    'Cloud Engineering',
+    'Cloud Computing',
+    'DevOps Automation',
     'Machine Learning',
-    'DevOps',
-    'AWS',
-    'Azure',
-    'TensorFlow',
-    'Data Science',
-    'Full Stack Development'
+    'AI Engineer',
+    'Full Stack Developer',
+    'Docker',
+    'Kubernetes',
+    'Spring Boot',
+    'Next.js Portfolio',
+    'Anass El Hannaoui',
   ],
-  authors: [{ name: 'Anass El Hannaoui' }],
+  authors: [{ name: 'Anass El Hannaoui', url: 'https://aelhannaoui-portfolio.vercel.app' }],
   creator: 'Anass El Hannaoui',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://yourdomain.com',
+    url: 'https://aelhannaoui-portfolio.vercel.app',
     title: 'Anass El Hannaoui | Cloud & AI Engineer',
-    description: 'Building intelligent cloud-native solutions and scalable architectures',
+    description: 'Cloud & AI enthusiast exploring DevOps, scalable systems, and ML projects.',
     siteName: 'Anass El Hannaoui',
     images: [
       {
-        url: 'https://yourdomain.com/og-image.jpg',
+        url: '/og-image.webp', // Assumes optimized image exists in /public
         width: 1200,
         height: 630,
         alt: 'Anass El Hannaoui Portfolio',
+        type: 'image/webp',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anass El Hannaoui | Cloud & AI Engineer',
-    description: 'Building intelligent cloud-native solutions and scalable architectures',
-    images: ['https://yourdomain.com/og-image.jpg'],
-    creator: '@yourtwitterhandle',
+    title: 'Anass El Hannaoui | Cloud & AI Enthusiast',
+    description: 'Cloud & AI enthusiast exploring DevOps, scalable systems, and ML projects.',
+    images: ['/og-image.webp'], // Assumes optimized image exists in /public
+    creator: '@yourtwitterhandle', // Replace with your actual Twitter handle
   },
   robots: {
     index: true,
@@ -63,15 +69,35 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: 'https://aelhannaoui-portfolio.vercel.app', // Canonical URL for SEO
+  },
 };
 
 export default function RootLayout({
   children,
+  hideNavbar = false,
+  hideFooter = false,
 }: {
   children: React.ReactNode;
+  hideNavbar?: boolean;
+  hideFooter?: boolean;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="scroll-smooth motion-reduce:scroll-auto"
+    >
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/inter-latin.woff2" // Assumes font file exists or is handled by next/font
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -79,12 +105,28 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="min-h-screen bg-background pt-16">
-            {children}
-            <Analytics/>
-          </main>
-          <Footer />
+          <a
+            href="#main-content"
+            className="absolute left-0 top-0 z-50 p-2 text-foreground bg-background opacity-0 focus:opacity-100 focus:outline-none"
+          >
+            Skip to content
+          </a>
+          {!hideNavbar && (
+            <header role="banner">
+              <Navbar />
+            </header>
+          )}
+          <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+            <main id="main-content" role="main" className="min-h-screen bg-background pt-16">
+              {children}
+              <Analytics />
+            </main>
+          </Suspense>
+          {!hideFooter && (
+            <footer role="contentinfo">
+              <Footer />
+            </footer>
+          )}
         </ThemeProvider>
       </body>
     </html>

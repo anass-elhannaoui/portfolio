@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Skills() {
   const skillCategories = [
@@ -123,27 +125,55 @@ export default function Skills() {
     },
   ];
 
+  const [filter, setFilter] = useState<string>(skillCategories[0].title);
+
+  const filteredCategories = skillCategories.filter(category => category.title === filter);
+
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ durtion: 0.2}}
+          transition={{ duration: 0.2 }}
         >
-          <h1 className="text-4xl font-bold mb-8">Skills</h1>
+          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">Skills</h1>
         </motion.div>
 
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                variant={filter === category.title ? "default" : "outline"}
+                onClick={() => setFilter(category.title)}
+                className={`rounded-full px-6 py-2 font-semibold transition-all duration-300 ${
+                  filter === category.title
+                    ? "bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md"
+                    : "bg-background dark:bg-black border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 text-foreground dark:text-gray-300"
+                }`}
+              >
+                {category.title}
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+
         <div className="space-y-12">
-          {skillCategories.map((category, categoryIndex) => (
+          {filteredCategories.map((category, categoryIndex) => (
             <motion.div
               key={categoryIndex}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: categoryIndex * 0.1 }}
-              className="bg-card p-6 rounded-xl shadow-lg"
             >
-              <h2 className="text-2xl font-semibold mb-6">{category.title}</h2>
+              <h2 className="text-2xl font-semibold mb-6 text-foreground dark:text-white">{category.title}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
@@ -156,7 +186,7 @@ export default function Skills() {
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
                       transition: { duration: 0.1 } 
                     }}
-                    className="flex gap-4 bg-muted p-4 rounded-lg shadow-sm hover:bg-muted/80 transition-colors duration-100"
+                    className="flex gap-4 p-4 rounded-lg bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30"
                   >
                     <Image
                       src={skill.icon}
@@ -167,14 +197,14 @@ export default function Skills() {
                     />
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-medium">{skill.name}</span>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="font-medium text-foreground dark:text-white">{skill.name}</span>
+                        <span className="text-xs text-muted-foreground dark:text-gray-400">
                           {skill.level}%
                         </span>
                       </div>
                       <Progress value={skill.level} className="h-2 mb-1" />
                       {skill.highlight && (
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-muted-foreground dark:text-gray-400">
                           {skill.highlight}
                         </p>
                       )}
