@@ -53,8 +53,8 @@ export default async function BlogPage() {
   const posts = await getPosts();
   
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-10 pb-6 bg-background dark:bg-black">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">Blog</h1>
         <PostsList posts={posts} />
       </div>

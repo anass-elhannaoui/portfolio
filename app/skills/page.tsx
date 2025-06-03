@@ -130,8 +130,8 @@ export default function Skills() {
   const filteredCategories = skillCategories.filter(category => category.title === filter);
 
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-10 pb-6 bg-background dark:bg-black">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

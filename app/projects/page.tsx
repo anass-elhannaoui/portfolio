@@ -190,14 +190,14 @@ export default function Projects() {
     : projects.filter(project => project.category.includes(filter));
 
   const typeColors = {
-    Professional: "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200",
-    Academic: "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200",
-    Personal: "bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200"
+    Professional: "bg-gradient-to-br from-blue-500/20 to-blue-700/20 text-blue-600 dark:from-blue-900/30 dark:to-blue-950/30 dark:text-blue-300",
+    Academic: "bg-gradient-to-br from-green-500/20 to-green-700/20 text-green-600 dark:from-green-900/30 dark:to-green-950/30 dark:text-green-300",
+    Personal: "bg-gradient-to-br from-purple-500/20 to-purple-700/20 text-purple-600 dark:from-purple-900/30 dark:to-purple-950/30 dark:text-purple-300"
   };
 
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-background dark:bg-black">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-10 pb-6 bg-background dark:bg-black">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -222,7 +222,7 @@ export default function Projects() {
                 className={`rounded-full px-6 py-2 font-semibold transition-all duration-300 ${
                   filter === cat
                     ? "bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md"
-                    : "bg-background dark:bg-black border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 text-foreground dark:text-gray-300"
+                    : "bg-background dark:bg-black border border-primary/20 dark:border-gray-700 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-600 text-foreground dark:text-gray-300"
                 }`}
               >
                 {cat}
@@ -231,39 +231,43 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="rounded-xl shadow-lg overflow-hidden border border-border dark:border-gray-600 transition-all duration-300 bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 cursor-pointer"
-              whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.2, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -3,
+                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                transition: { duration: 0.1 } 
+              }}
+              className="flex gap-4 p-4 rounded-2xl bg-gradient-to-br from-gray-100/50 to-gray-200/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-transparent dark:border-none cursor-pointer transform-gpu hover:shadow-[0_4px_15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_4px_15px_rgba(255,255,255,0.1)]"
               onClick={() => openProjectDetails(project)}
             >
-              <div className="relative">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={600}
-                  height={400}
-                  className="w-full h-48 object-cover"
-                />
-                <span className={`absolute top-2 left-2 text-xs px-2 py-1 rounded-full ${typeColors[project.type]}`}>
-                  {project.type}
-                </span>
-              </div>
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-2 text-foreground dark:text-white">{project.title}</h2>
-                <p className="text-muted-foreground dark:text-gray-400 text-sm mb-4">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={80}
+                height={80}
+                className="flex-shrink-0 rounded-lg object-cover"
+              />
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-medium text-foreground dark:text-white">{project.title}</span>
+                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${typeColors[project.type]}`}>
+                    {project.type}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground dark:text-gray-400 mb-2 line-clamp-3">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 4).map((tech, i) => (
+                  {project.technologies.slice(0, 3).map((tech, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300"
+                      className="flex items-center gap-1.5 bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-800/50 p-1.5 px-3 rounded-full text-xs font-medium text-foreground dark:text-gray-300"
                     >
                       <Image
                         src={tech.icon}
@@ -275,9 +279,9 @@ export default function Projects() {
                       {tech.name}
                     </div>
                   ))}
-                  {project.technologies.length > 4 && (
-                    <div className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300">
-                      +{project.technologies.length - 4}
+                  {project.technologies.length > 3 && (
+                    <div className="flex items-center gap-1.5 bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-800/50 p-1.5 px-3 rounded-full text-xs font-medium text-foreground dark:text-gray-300">
+                      +{project.technologies.length - 3}
                     </div>
                   )}
                 </div>
@@ -288,18 +292,18 @@ export default function Projects() {
 
         {selectedProject && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             onClick={closeProjectDetails}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-background dark:bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-border dark:border-gray-600 bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30"
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-background dark:bg-gray-900 rounded-2xl max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-gray-200/50 dark:border-gray-800/50 bg-gradient-to-br from-gray-100/50 to-gray-200/50 dark:from-gray-800/50 dark:to-gray-900/50 shadow-[0_8px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.1)]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white"
+                className="absolute top-4 right-4 text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white transition-colors duration-200"
                 onClick={closeProjectDetails}
               >
                 <X className="h-6 w-6" />
@@ -311,7 +315,7 @@ export default function Projects() {
                 {selectedProject.technologies.map((tech, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-1 bg-accent dark:bg-gray-800 p-1 px-2 rounded-full text-xs text-foreground dark:text-gray-300"
+                    className="flex items-center gap-1.5 bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-800/50 p-1.5 px-3 rounded-full text-xs font-medium text-foreground dark:text-gray-300"
                   >
                     <Image
                       src={tech.icon}
@@ -334,7 +338,7 @@ export default function Projects() {
                 {selectedProject.github && selectedProject.github !== "#" && (
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                     <Link href={selectedProject.github} target="_blank">
-                      <Button variant="outline" className="rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 text-foreground dark:text-gray-300">
+                      <Button variant="outline" className="rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-700 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-600 text-foreground dark:text-gray-300 transition-all duration-200">
                         <Github className="w-4 h-4 mr-2" /> GitHub
                       </Button>
                     </Link>
@@ -343,7 +347,7 @@ export default function Projects() {
                 {selectedProject.demo && selectedProject.demo !== "#" && (
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                     <Link href={selectedProject.demo} target="_blank">
-                      <Button className="rounded-full px-6 py-2 font-semibold bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md transition-all duration-300">
+                      <Button className="rounded-full px-6 py-2 font-semibold bg-gradient-to-r from-primary to-primary/80 dark:from-gray-600 dark:to-gray-600/80 text-white shadow-md transition-all duration-200">
                         <ExternalLink className="w-4 h-4 mr-2" /> 
                         {selectedProject.title === "RipAns – RMI Chat Application" ? "App Website" : "Live Demo"}
                       </Button>

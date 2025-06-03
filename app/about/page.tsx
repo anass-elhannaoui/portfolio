@@ -78,13 +78,13 @@ export default function About() {
       title: "AI-Powered Road Infrastructure Management",
       description: "Computer vision system for pothole detection using YOLOv8 and Vision Transformers with real-time mapping.",
       period: "March 2025 – June 2025",
-    },
-    {
-      id: "chat-application",
-      title: "RipAns – RMI Chat Application",
-      description: "Real-time chat application built with Java RMI for secure communication between multiple clients.",
-      period: "February 2025 – March 2025",
     }
+    // {
+    //   id: "chat-application",
+    //   title: "RipAns – RMI Chat Application",
+    //   description: "Real-time chat application built with Java RMI for secure communication between multiple clients.",
+    //   period: "February 2025 – March 2025",
+    // }
   ];
 
   const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
@@ -123,9 +123,9 @@ export default function About() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen pt-14 pb-10 bg-background dark:bg-black"
+      className="min-h-screen pt-10 pb-6 bg-background dark:bg-black"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Profile Section */}
         <motion.div
           initial="hidden"
@@ -174,7 +174,7 @@ export default function About() {
           
           <motion.div 
             variants={itemVariants}
-            className="flex flex-col sm:flex-row justify-between items-center gap-4 p-8 border rounded-xl bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg"
+            className="flex flex-col sm:flex-row justify-between items-center gap-4 p-6 border rounded-xl bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 shadow-lg"
             whileHover={{ boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.2)", scale: 1.003 }}
           >
             <div className="text-center sm:text-left mb-4 sm:mb-0">
@@ -357,7 +357,7 @@ export default function About() {
           
           <motion.div 
             variants={containerVariants} 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"
           >
             {featuredProjects.map((project, index) => (
               <motion.div
