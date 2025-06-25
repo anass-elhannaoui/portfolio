@@ -88,6 +88,7 @@ export default function CVViewer() {
           My Curriculum Vitae
         </h1>
 
+
         {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

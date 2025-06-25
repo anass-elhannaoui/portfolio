@@ -6,6 +6,7 @@ import { Github, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { FolderGit2 } from "lucide-react";
 
 type Technology = {
   name: string;
@@ -211,9 +212,11 @@ const getBadgeColor = (type: string) => {
           transition={{ duration: 0.2 }}
           className="mb-16"
         >
-          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">
+          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white flex items-center">
+            <FolderGit2 className="mr-2 text-primary dark:text-gray-400" />
             Featured Projects
           </h1>
+
 
 
           <div className="flex flex-wrap justify-center gap-3 mb-8">

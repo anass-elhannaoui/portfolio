@@ -1,4 +1,5 @@
 "use client";
+import { BadgeCheck } from "lucide-react";
 
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
@@ -137,7 +138,12 @@ export default function Skills() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white">Skills</h1>
+          <h1 className="text-4xl font-bold mb-8 text-foreground dark:text-white flex items-center">
+            <BadgeCheck className="mr-2 text-primary dark:text-gray-400" />
+            Skills
+         </h1>
+
+
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-8">
