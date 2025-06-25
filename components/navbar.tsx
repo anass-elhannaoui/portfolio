@@ -16,7 +16,7 @@ export function Navbar() {
     { name: "Projects", path: "/projects" },
     { name: "Skills", path: "/skills" },
     { name: "CV", path: "/CV" },
-    { name: "Blog", path: "/blog" },
+    { name: "Certifications", path: "/certifications" },
     { name: "Contact", path: "/contact" },
   ];
 
