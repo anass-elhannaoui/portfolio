@@ -24,36 +24,44 @@ type Project = {
   demo: string;
   category: string[];
   type: "Professional" | "Academic" | "Personal";
+  details?: {
+    team?: {
+      members?: string[];
+      advisor?: string;
+    };
+    key_achievements?: string[];
+    [key: string]: any;
+  };
 };
 
 export default function Projects() {
   const projects: Project[] = [
-    {
+   {
       id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management System",
       period: "March 2025 – June 2025",
-      description: "A mobile/desktop app for real-time pothole detection and maintenance planning using advanced ML models.",
+      description: "A comprehensive system integrating AI detection of road potholes with mobile reporting and web-based management platforms for maintenance planning.",
       technologies: [
-        { name: "YOLOv8", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Apache Kafka", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" },
-        { name: "Spark", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" },
-        { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-        { name: "Faster R-CNN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Vision Transformers", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-        { name: "Leaflet.js", icon: "https://www.svgrepo.com/show/353991/leaflet.svg" }
+        { name: "YOLOv10", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "React.js", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Spring Boot", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
+        { name: "Firebase", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+        { name: "Leaflet.js", "icon": "https://www.svgrepo.com/show/353991/leaflet.svg" },
+        { name: "Docker", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
       ],
       responsibilities: [
-        "Developed a mobile/desktop app for road pothole detection using YOLOv8, Faster R-CNN, and Vision Transformers.",
-        "Designed a real-time data processing pipeline with Apache Kafka and Spark.",
-        "Created an interactive mapping system with Leaflet.js and OpenStreetMap.",
-        "Built an administrative interface for maintenance planning and real-time notifications.",
-        "Conducted rigorous testing to ensure high detection accuracy and reliability.",
+        "Developed the full-stack web platform (React.js frontend + Spring Boot backend) for administrators to manage reports and maintenance operations",
+        "Designed and implemented the real-time interactive dashboard with data visualization and mapping system using Leaflet.js",
+        "Created the database architecture and integrated Firebase Firestore for synchronized data storage",
+        "Built the administrative interface for user management, task assignment, and progress tracking",
+        "Implemented the API gateway between the web platform and Firebase services",
+        "Conducted integration testing and validation with the mobile application team"
       ],
       github: "https://github.com/aadraouimostafakamal/road-infrastructure-management",
       demo: "#",
       category: ["Machine Learning", "Web Development"],
-      type: "Professional"
+      type: "Academic",
+
     },
     {
       id: "energy-management",
@@ -95,7 +103,7 @@ export default function Projects() {
         "Ensured message synchronization and consistent state management across clients.",
         "Implemented key functionalities such as private messaging, public chat, and user connection management.",
       ],
-      github: "https://github.com/aadraouimostafakamal/RipAns",
+      github: "https://github.com/anass-elhannaoui/RipAns-ChatApp",
       demo: "https://aadraouimostafakamal.github.io/RipAns/",
       category: ["Web Development"],
       type: "Personal"
