@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Github, ExternalLink, X } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -18,36 +18,28 @@ type Project = {
   title: string;
   period: string;
   description: string;
+  image: string;
   technologies: Technology[];
   responsibilities: string[];
-  github: string;
   demo: string;
   category: string[];
-  type: "Professional" | "Academic" | "Personal";
-  details?: {
-    team?: {
-      members?: string[];
-      advisor?: string;
-    };
-    key_achievements?: string[];
-    [key: string]: any;
-  };
 };
 
 export default function Projects() {
   const projects: Project[] = [
-   {
+    {
       id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management System",
       period: "March 2025 – June 2025",
       description: "A comprehensive system integrating AI detection of road potholes with mobile reporting and web-based management platforms for maintenance planning.",
+      image: "/images/road-infra.png",
       technologies: [
-        { name: "YOLOv10", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "React.js", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-        { name: "Spring Boot", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-        { name: "Firebase", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-        { name: "Leaflet.js", "icon": "https://www.svgrepo.com/show/353991/leaflet.svg" },
-        { name: "Docker", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name: "YOLOv10", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
+        { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+        { name: "Leaflet.js", icon: "https://www.svgrepo.com/show/353991/leaflet.svg" },
+        { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
       ],
       responsibilities: [
         "Developed the full-stack web platform (React.js frontend + Spring Boot backend) for administrators to manage reports and maintenance operations",
@@ -57,17 +49,15 @@ export default function Projects() {
         "Implemented the API gateway between the web platform and Firebase services",
         "Conducted integration testing and validation with the mobile application team"
       ],
-      github: "https://github.com/aadraouimostafakamal/road-infrastructure-management",
       demo: "#",
       category: ["Machine Learning", "Web Development"],
-      type: "Academic",
-
     },
     {
       id: "energy-management",
       title: "Energy Consumption Management Platform (SIME)",
       period: "August 2024 – October 2024",
       description: "A full-stack platform for monitoring and managing factory energy consumption with real-time analytics.",
+      image: "/images/SIME.png",
       technologies: [
         { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
         { name: "Angular", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" },
@@ -83,16 +73,15 @@ export default function Projects() {
         "Deployed the application on Google Cloud for seamless data retrieval.",
         "Gained hands-on experience in the full software development lifecycle.",
       ],
-      github: "#",
       demo: "#",
       category: ["Web Development"],
-      type: "Professional"
     },
     {
       id: "chat-application",
       title: "RipAns – RMI Chat Application",
       period: "February 2025 – March 2025",
       description: "A real-time chat application built using Java RMI to enable secure and efficient communication between multiple clients.",
+      image: "/images/RipAns.png",
       technologies: [
         { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
         { name: "RMI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
@@ -103,16 +92,15 @@ export default function Projects() {
         "Ensured message synchronization and consistent state management across clients.",
         "Implemented key functionalities such as private messaging, public chat, and user connection management.",
       ],
-      github: "https://github.com/anass-elhannaoui/RipAns-ChatApp",
       demo: "https://aadraouimostafakamal.github.io/RipAns/",
       category: ["Web Development"],
-      type: "Personal"
     },
     {
       id: "movie-recommendation",
       title: "Movie Recommendation System",
       period: "October 2023 – November 2023",
       description: "A personalized movie recommendation platform combining machine learning algorithms with a user-friendly web interface.",
+      image: "/images/movie-rec.jpg",
       technologies: [
         { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
         { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" },
@@ -127,16 +115,15 @@ export default function Projects() {
         "Applied CountVectorizer for text-to-feature transformation to enhance model accuracy.",
         "Developed web interface using Flask for user interaction.",
       ],
-      github: "https://github.com/aadraouimostafakamal/movie-recommendation-system",
       demo: "#",
       category: ["Machine Learning", "Web Development"],
-      type: "Academic"
     },
     {
       id: "twitter-sentiment",
       title: "Twitter Sentiment Analysis",
       period: "October 2024 – December 2024",
       description: "A sentiment analysis system designed to classify Twitter comments using advanced NLP techniques and machine learning models.",
+      image: "/images/twitter-sentiment.png",
       technologies: [
         { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
         { name: "Transformers", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
@@ -151,10 +138,8 @@ export default function Projects() {
         "Built and trained various machine learning models including RNN and LSTM for sentiment analysis.",
         "Fine-tuned model performance by leveraging word embeddings and deep learning architectures.",
       ],
-      github: "https://github.com/aadraouimostafakamal/twitter-sentiment-analysis",
       demo: "#",
       category: ["Machine Learning"],
-      type: "Academic"
     },
   ];
 
@@ -192,20 +177,6 @@ export default function Projects() {
     ? projects 
     : projects.filter(project => project.category.includes(filter));
 
-const getBadgeColor = (type: string) => {
-  switch (type) {
-    case "Professional":
-      return "bg-gradient-to-r from-blue-500 to-blue-600";
-    case "Academic":
-      return "bg-gradient-to-r from-green-500 to-green-600";
-    case "Personal":
-      return "bg-gradient-to-r from-red-500 to-red-600";
-    default:
-      return "bg-gradient-to-r from-gray-500 to-gray-600";
-  }
-};
-
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -224,8 +195,6 @@ const getBadgeColor = (type: string) => {
             <FolderGit2 className="mr-2 text-primary dark:text-gray-400" />
             Featured Projects
           </h1>
-
-
 
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {["All", "Machine Learning", "Web Development"].map((cat, index) => (
@@ -267,7 +236,16 @@ const getBadgeColor = (type: string) => {
                 className="relative flex flex-col sm:flex-row p-4 rounded-lg bg-gradient-to-b from-gray-200/50 to-gray-100/30 dark:from-gray-800/50 dark:to-gray-900/30 cursor-pointer min-h-[300px]"
                 onClick={() => openProjectDetails(project)}
               >
-                <div className="flex-grow pr-0 sm:pr-4">
+                <div className="flex-shrink-0 w-full sm:w-32 h-32 sm:h-auto mb-4 sm:mb-0 sm:mr-4">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex-grow">
                   <h3 className="text-lg font-medium mb-2 text-foreground dark:text-white">
                     {project.title}
                   </h3>
@@ -296,19 +274,6 @@ const getBadgeColor = (type: string) => {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    {project.github !== "#" && (
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="rounded-full px-3 py-0.5 text-xs font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 transition-all duration-300 flex items-center justify-center text-foreground dark:text-gray-300"
-                      >
-                        <Link href={project.github} target="_blank">
-                          <Github className="mr-1 h-3 w-3" />
-                          GitHub
-                        </Link>
-                      </Button>
-                    )}
                     {project.demo !== "#" && (
                       <Button
                         asChild
@@ -323,15 +288,6 @@ const getBadgeColor = (type: string) => {
                       </Button>
                     )}
                   </div>
-                </div>
-                <div className="flex-shrink-0 mt-3 sm:mt-0 sm:ml-4">
-                 <motion.span
-                    whileHover={{ scale: 1.1 }}
-                    className={`inline-flex items-center justify-center px-2 h-6 rounded-full text-[10px] font-medium text-white ${getBadgeColor(project.type)}`}
-                  >
-                    {project.type}
-                  </motion.span>
-
                 </div>
               </motion.div>
             ))}
@@ -362,6 +318,15 @@ const getBadgeColor = (type: string) => {
                 >
                   <X className="h-6 w-6" />
                 </button>
+                <div className="mb-4">
+                  <Image
+                    src={selectedProject.image}
+                    alt={`${selectedProject.title} preview`}
+                    width={300}
+                    height={200}
+                    className="w-full max-w-[300px] h-auto rounded-lg mx-auto"
+                  />
+                </div>
                 <h2 className="text-2xl font-bold mb-2 text-foreground dark:text-white">{selectedProject.title}</h2>
                 <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">{selectedProject.period}</p>
                 <p className="mb-4 text-foreground dark:text-gray-300">{selectedProject.description}</p>
@@ -393,21 +358,6 @@ const getBadgeColor = (type: string) => {
                   ))}
                 </ul>
                 <div className="flex gap-4">
-                  {selectedProject.github !== "#" && (
-                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="w-full rounded-full px-6 py-2 font-semibold border border-primary/20 dark:border-gray-600 hover:bg-primary/10 dark:hover:bg-gray-800 hover:border-primary/40 dark:hover:border-gray-500 transition-all duration-300 flex items-center justify-center text-foreground dark:text-gray-300"
-                      >
-                        <Link href={selectedProject.github} target="_blank">
-                          <Github className="mr-1 h-4 w-4" />
-                          GitHub
-                        </Link>
-                      </Button>
-                    </motion.div>
-                  )}
                   {selectedProject.demo !== "#" && (
                     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                       <Button
