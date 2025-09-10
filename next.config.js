@@ -1,10 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const isGithub = process.env.GITHUB_ACTIONS === 'true';
+
+module.exports = {
   output: 'export',
-  basePath: '/portfolio',
-  assetPrefix: '/portfolio/',
+  basePath: isGithub ? '/portfolio' : '',
+  assetPrefix: isGithub ? '/portfolio/' : '',
   eslint: { ignoreDuringBuilds: true },
   images: { unoptimized: true },
 };
-
-module.exports = nextConfig;
