@@ -31,7 +31,8 @@ export default function Projects() {
       id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management System",
       period: "March 2025 – June 2025",
-      description: "A comprehensive system integrating AI detection of road potholes with mobile reporting and web-based management platforms for maintenance planning.",
+      description:
+        "A comprehensive system integrating AI detection of road potholes with mobile reporting and web-based management platforms for maintenance planning.",
       image: "/images/road-infra.png",
       technologies: [
         { name: "YOLOv10", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
@@ -42,16 +43,19 @@ export default function Projects() {
         { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
       ],
       responsibilities: [
-        "Developed the full-stack web platform (React.js frontend + Spring Boot backend) for administrators to manage reports and maintenance operations",
-        "Designed and implemented the real-time interactive dashboard with data visualization and mapping system using Leaflet.js",
-        "Created the database architecture and integrated Firebase Firestore for synchronized data storage",
-        "Built the administrative interface for user management, task assignment, and progress tracking",
-        "Implemented the API gateway between the web platform and Firebase services",
-        "Conducted integration testing and validation with the mobile application team"
+        "Trained a multi-class YOLOv10 model for pothole and road damage detection on a high-performance server at the Cedar datacenter.",
+        "Developed an automation module in the backend to assign maintenance tasks to appropriate teams automatically.",
+        "Developed the full-stack web platform (React.js frontend + Spring Boot backend) for administrators to manage reports and maintenance operations.",
+        "Designed and implemented the real-time interactive dashboard with data visualization and mapping system using Leaflet.js.",
+        "Created the database architecture and integrated Firebase Firestore for synchronized data storage.",
+        "Built the administrative interface for user management, task assignment, and progress tracking.",
+        "Implemented the API gateway between the web platform and Firebase services.",
+        "Conducted integration testing and validation with the mobile application team."
       ],
       demo: "#",
       category: ["Machine Learning", "Web Development"],
     },
+
     {
       id: "energy-management",
       title: "Energy Consumption Management Platform (SIME)",
