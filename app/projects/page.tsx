@@ -123,7 +123,7 @@ export default function Projects() {
         "Ensured message synchronization and consistent state management across clients.",
         "Implemented key functionalities such as private messaging, public chat, and user connection management.",
       ],
-      demo: "https://aadraouimostafakamal.github.io/RipAns/",
+      demo: "#",
       category: ["Web Development"],
     },
     {
