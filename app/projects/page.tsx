@@ -28,6 +28,33 @@ type Project = {
 export default function Projects() {
   const projects: Project[] = [
     {
+    id: "ai-pedagogical-assistant",
+    title: "AI-Powered Pedagogical Assistant Platform",
+    period: "September 2024 – December 2024",
+    description:
+      "A white-label SaaS platform enabling educational institutions to configure personalized learning environments with an AI virtual assistant for automated course generation and student progress tracking.",
+    image: "/images/ai-pedagogy.png",
+    technologies: [
+      { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+      { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+      { name: "OpenAI API", icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+      { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+      { name: "Vercel", icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
+    ],
+    responsibilities: [
+      "Designed the complete platform architecture and PostgreSQL database schema for multi-tenant SaaS deployment.",
+      "Developed full-stack application using Next.js with Tailwind CSS for frontend and Supabase for backend infrastructure.",
+      "Integrated OpenAI API (GPT-3.5 Turbo) for AI-powered chat assistant and automated learning path generation.",
+      "Created interactive dashboard for teachers, admins, and students with real-time tracking and automated alerts.",
+      "Developed student interface with personalized learning paths, AI chat interaction, and progress visualization.",
+      "Deployed production application on Vercel with scalable infrastructure and continuous integration."
+    ],
+    demo: "#",
+    category: ["Machine Learning", "Web Development"],
+  },
+
+    {
       id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management System",
       period: "March 2025 – June 2025",
