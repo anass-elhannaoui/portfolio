@@ -33,7 +33,7 @@ export default function Projects() {
     period: "September 2024 – December 2024",
     description:
       "A white-label SaaS platform enabling educational institutions to configure personalized learning environments with an AI virtual assistant for automated course generation and student progress tracking.",
-    image: "/images/ai-pedagogy.png",
+    image: "/images/EduPlatform.png",
     technologies: [
       { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
       { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
