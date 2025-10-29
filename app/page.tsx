@@ -73,7 +73,7 @@ export default function Home() {
                   sequence={[
                     'Full-Stack Developer', 2000,
                     'Cloud & DevOps Explorer', 2000,
-                    'Problem Solver', 2000
+                    'IA Developer', 2000
                   ]}
                   wrapper="span"
                   speed={50}

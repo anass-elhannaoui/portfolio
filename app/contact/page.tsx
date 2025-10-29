@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, Phone, Send, CheckCircle2, Loader2, X } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { useState, useRef } from "react";
 
 export default function Contact() {
@@ -20,10 +20,13 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const emailInput = formRef.current?.querySelector('input[name="email"]') as HTMLInputElement;
-    const emailValue = emailInput?.value || '';
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const subject = formData.get('subject') as string;
+    const message = formData.get('message') as string;
 
-    if (!isValidEmail(emailValue)) {
+    if (!isValidEmail(email)) {
       alert("Please enter a valid email address with a proper domain (e.g., .com, .org).");
       return;
     }
@@ -31,20 +34,30 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const formData = new FormData(e.currentTarget);
-      formData.append('submission_timestamp', new Date().toISOString());
-
-      const response = await fetch("https://formsubmit.co/anass.elhannaoui.io@gmail.com", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: name || email,
+          email: email,
+          subject: subject,
+          message: message,
+        })
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      console.log("Web3Forms response:", result);
+
+      if (result.success) {
         setIsSubmitted(true);
         formRef.current?.reset();
       } else {
-        console.error("Form submission error:", response.status);
-        alert("There was an issue with the form submission. Please try again.");
+        console.error("Form submission error:", result);
+        alert(result.message || "There was an issue with the form submission. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -188,17 +201,11 @@ export default function Contact() {
               <form 
                 ref={formRef}
                 onSubmit={handleSubmit}
-                method="POST"
                 className="h-full flex flex-col"
               >
                 <div className="bg-gray-100 dark:bg-gray-800 px-6 py-3 border-b border-gray-200/50 dark:border-gray-700/50 flex justify-between items-center">
                   <h2 className="text-lg font-semibold text-foreground dark:text-white">Send a Message</h2>
                 </div>
-
-                <input type="hidden" name="_subject" value="New contact form submission" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_next" value="false" />
-                <input type="text" name="_honey" style={{ display: "none" }} />
 
                 <div className="p-6 space-y-4 flex-grow flex flex-col">
                   <motion.div
@@ -211,7 +218,6 @@ export default function Contact() {
                     <span className="text-sm font-medium w-16 shrink-0 text-foreground dark:text-white">To:</span>
                     <Input
                       type="text"
-                      name="to"
                       value="anass.elhannaoui.io@gmail.com"
                       className="flex-1 border-0 px-0 shadow-none focus-visible:ring-0 bg-transparent text-foreground dark:text-white"
                       readOnly
@@ -230,8 +236,6 @@ export default function Contact() {
                       type="email"
                       name="email"
                       placeholder="your.email@example.com"
-                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                      title="Please enter a valid email address with a proper domain (e.g., .com, .org)"
                       className="flex-1 border-0 px-0 shadow-none focus-visible:ring-0 bg-transparent text-foreground dark:text-white"
                       required
                     />
@@ -253,6 +257,9 @@ export default function Contact() {
                       required
                     />
                   </motion.div>
+
+                  {/* Hidden name field for Web3Forms */}
+                  <input type="hidden" name="name" value="Portfolio Contact" />
 
                   <motion.div
                     custom={3}
