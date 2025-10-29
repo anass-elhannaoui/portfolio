@@ -28,32 +28,80 @@ type Project = {
 export default function Projects() {
   const projects: Project[] = [
     {
-    id: "ai-pedagogical-assistant",
-    title: "AI-Powered Pedagogical Assistant Platform",
-    period: "September 2024 – December 2024",
-    description:
-      "A white-label SaaS platform enabling educational institutions to configure personalized learning environments with an AI virtual assistant for automated course generation and student progress tracking.",
-    image: "/images/EduPlatform.png",
-    technologies: [
-      { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-      { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
-      { name: "OpenAI API", icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
-      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-      { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-      { name: "Vercel", icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
-    ],
-    responsibilities: [
-      "Designed the complete platform architecture and PostgreSQL database schema for multi-tenant SaaS deployment.",
-      "Developed full-stack application using Next.js with Tailwind CSS for frontend and Supabase for backend infrastructure.",
-      "Integrated OpenAI API (GPT-3.5 Turbo) for AI-powered chat assistant and automated learning path generation.",
-      "Created interactive dashboard for teachers, admins, and students with real-time tracking and automated alerts.",
-      "Developed student interface with personalized learning paths, AI chat interaction, and progress visualization.",
-      "Deployed production application on Vercel with scalable infrastructure and continuous integration."
-    ],
-    demo: "#",
-    category: ["Machine Learning", "Web Development"],
-  },
-
+      id: "ai-pedagogical-assistant",
+      title: "AI-Powered Pedagogical Assistant Platform",
+      period: "September 2024 – December 2024",
+      description:
+        "A white-label SaaS platform enabling educational institutions to configure personalized learning environments with an AI virtual assistant for automated course generation and student progress tracking.",
+      image: "/images/EduPlatform.png",
+      technologies: [
+        { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+        { name: "OpenAI API", icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
+        { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+        { name: "Vercel", icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
+      ],
+      responsibilities: [
+        "Designed the complete platform architecture and PostgreSQL database schema for multi-tenant SaaS deployment.",
+        "Developed full-stack application using Next.js with Tailwind CSS for frontend and Supabase for backend infrastructure.",
+        "Integrated OpenAI API (GPT-3.5 Turbo) for AI-powered chat assistant and automated learning path generation.",
+        "Created interactive dashboard for teachers, admins, and students with real-time tracking and automated alerts.",
+        "Developed student interface with personalized learning paths, AI chat interaction, and progress visualization.",
+        "Deployed production application on Vercel with scalable infrastructure and continuous integration."
+      ],
+      demo: "#",
+      category: ["Machine Learning", "Web Development"],
+    },
+    {
+      id: "cicd-pipeline",
+      title: "CI/CD Pipeline with GitHub Actions and Docker",
+      period: "September 2024",
+      description:
+        "An automated CI/CD pipeline for a Node.js web application with automated testing, multi-stage Docker builds, and continuous deployment to Docker Hub with image versioning.",
+      image: "/images/cicd-pipeline.png",
+      technologies: [
+        { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+        { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name: "Docker Hub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+      ],
+      responsibilities: [
+        "Built an automated CI/CD pipeline for a Node.js web application with comprehensive test automation.",
+        "Implemented multi-stage Docker builds to optimize image size and improve deployment efficiency.",
+        "Configured GitHub Actions workflows for automated building, testing, and deployment processes.",
+        "Set up automated deployment to Docker Hub with proper image versioning and tagging strategies.",
+        "Integrated automated testing into the pipeline to ensure code quality before deployment.",
+        "Established best practices for containerization and continuous deployment workflows."
+      ],
+      demo: "#",
+      category: ["DevOps & Cloud"],
+    },
+    {
+      id: "kubernetes-deployment",
+      title: "Web Application Deployment on Kubernetes",
+      period: "August 2025",
+      description:
+        "Multi-replica Nginx application deployment on local Kubernetes cluster with LoadBalancer services, horizontal auto-scaling, rolling updates, and health checks for high availability.",
+      image: "/images/kubernetes-deployment.png",
+      technologies: [
+        { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        { name: "Minikube", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name: "kubectl", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        { name: "Nginx", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
+      ],
+      responsibilities: [
+        "Deployed multi-replica Nginx application on local Kubernetes cluster using Minikube.",
+        "Configured LoadBalancer services to distribute traffic across multiple application replicas.",
+        "Implemented horizontal pod autoscaling (HPA) to automatically adjust resources based on demand.",
+        "Set up rolling updates strategy to enable zero-downtime deployments and seamless version updates.",
+        "Configured liveness and readiness probes to ensure high availability and proper health monitoring.",
+        "Managed cluster operations using kubectl for deployment management and troubleshooting."
+      ],
+      demo: "#",
+      category: ["DevOps & Cloud"],
+    },
     {
       id: "road-infrastructure",
       title: "AI-Powered Road Infrastructure Management System",
@@ -82,7 +130,6 @@ export default function Projects() {
       demo: "#",
       category: ["Machine Learning", "Web Development"],
     },
-
     {
       id: "energy-management",
       title: "Energy Consumption Management Platform (SIME)",
@@ -228,7 +275,7 @@ export default function Projects() {
           </h1>
 
           <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {["All", "Machine Learning", "Web Development"].map((cat, index) => (
+            {["All", "Machine Learning", "Web Development", "DevOps & Cloud"].map((cat, index) => (
               <motion.div
                 key={cat}
                 initial={{ opacity: 0, y: 10 }}
